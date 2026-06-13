@@ -70,9 +70,12 @@
     "title": "Misafirlerimiz Ne Diyor?",
     "subtitle": "⭐ 4.4 · Google'da 232 değerlendirme",
     "items": [
-      { "name": "Ahmet Y.", "rating": 5, "text": "Portakal ağaçlarının arasında muhteşem bir kamp deneyimi. Her şey çok temiz ve sahibi son derece ilgili." },
-      { "name": "Elif K.", "rating": 5, "text": "Olympos'a yürüme mesafesinde, doğayla iç içe huzurlu bir alan. Kesinlikle tekrar geleceğiz." },
-      { "name": "Mert D.", "rating": 4, "text": "Ateş alanı ve ortak mutfak çok keyifliydi. Sessiz ve sakin bir gece geçirdik." }
+      { "name": "İlhan Demirpolat", "rating": 5, "text": "Yemekler temiz, güzel ve doyurucu. Duş ve tuvalet camping için gayet iyi. İşletmecisi cana yakın, çevre hakkında bilgili ve yardımcı. Alan doğayla iç içe, çadırlar ağaç gölgeliğinde. Güvenlik konusunda hiç sorun yaşamadık." },
+      { "name": "Orkun Akile", "rating": 4, "text": "Geniş bir limon bahçesine kurulmuş, dere yatağıyla yoldan izole edilmiş sakin bir kamp alanı. Gölgesi bol, çadır aralıkları ferah. Halanın ev yemekleri çeşitli ve doyurucu, kendisi de çok samimi ve dobra." },
+      { "name": "Yusuf Aksoy", "rating": 5, "text": "Çok güzel bir kamp alanı. Markete 15 dk, plaja 10 dk yürüme mesafesinde. Hala'nın ilgisi çok güzeldi, çok güzel bir 3 gün geçirdik." },
+      { "name": "Gülsen Çankaya", "rating": 5, "text": "Kampın girişi mütevazı ve dingin, kafa dinlemek için doğru adres. Kendimi evimde gibi hissettim. Hala misafirlerine müşteri gözüyle bakmıyor, insani değerleri öne koyuyor. Çıkın çıkın gelin derim." },
+      { "name": "Eylem", "rating": 5, "text": "Portakal ağaçlarının altında çok güzel iki gün geçirdik. Hala'nın sıcaklığı ve samimiyetiyle kendimizi evimizde hissettik. Güzel ev yemekleri ve ilgisi için çok teşekkür ederiz." },
+      { "name": "Bengi Gökçe Coşkuner", "rating": 5, "text": "Kamp alanı portakal ve limon ağaçları içinde oldukça güzeldi. Sedirlerde oturup Hala'yla sohbet ederek vakit geçirdik. Kahvaltı ve akşam yemeği doyurucu ve lezzetliydi. Duş ve tuvalette hiç sorun yaşamadık." }
     ],
     "cta": "Google'da Tüm Yorumları Gör →"
   },

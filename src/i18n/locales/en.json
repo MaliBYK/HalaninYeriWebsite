@@ -70,9 +70,12 @@
     "title": "What Our Guests Say",
     "subtitle": "⭐ 4.4 · 232 reviews on Google",
     "items": [
-      { "name": "Ahmet Y.", "rating": 5, "text": "An amazing camping experience among the orange trees. Everything is spotless and the owner is incredibly attentive." },
-      { "name": "Elif K.", "rating": 5, "text": "A peaceful spot surrounded by nature, just a short walk from Olympos. We'll definitely be back." },
-      { "name": "Mert D.", "rating": 4, "text": "The fire pit and shared kitchen were great. We had a quiet, relaxing night." }
+      { "name": "İlhan Demirpolat", "rating": 5, "text": "The food was clean, tasty and filling. Showers and toilets were great for tent camping. The owner is friendly, knowledgeable about the area and very helpful. The site blends into nature, with tents shaded by trees. We had no safety concerns at all." },
+      { "name": "Orkun Akile", "rating": 4, "text": "Set in a spacious lemon grove, isolated from the road by a streambed - a calm, shaded campsite with generous spacing between tents. Hala's home-cooked meals are varied and filling, and she herself is warm and refreshingly direct." },
+      { "name": "Yusuf Aksoy", "rating": 5, "text": "A really lovely campsite. 15 minutes to the market, 10 minutes to the beach on foot. Hala took great care of us - we had a wonderful 3 days." },
+      { "name": "Gülsen Çankaya", "rating": 5, "text": "The entrance to the camp is modest and calm, the right place if you want to clear your head. I felt right at home. Hala doesn't see guests as customers - human values come first here. I'll definitely be back." },
+      { "name": "Eylem", "rating": 5, "text": "We spent two lovely days under the orange trees. Hala's warmth and hospitality made us feel right at home. Thank you for the great home-cooked meals and care." },
+      { "name": "Bengi Gökçe Coşkuner", "rating": 5, "text": "The campsite among the orange and lemon trees was really beautiful. We spent most of our time on the daybeds chatting with Hala. Breakfast and dinner were filling and delicious, and showers/toilets were no problem at all." }
     ],
     "cta": "See All Reviews on Google →"
   },
