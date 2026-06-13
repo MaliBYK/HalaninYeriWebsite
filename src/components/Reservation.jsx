@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 // BotFather'dan alınan token ve getUpdates ile bulunan chat_id buraya girilir
-const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN';
-const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
+const TELEGRAM_BOT_TOKEN = '8797435117:AAE82yOFdkA0VJtejqwfMSqi0c7WtBggGro';
+const TELEGRAM_CHAT_ID = '7727326281';
 
 const initialFormData = {
   adSoyad: '',
