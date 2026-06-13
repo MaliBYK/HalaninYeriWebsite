@@ -20,7 +20,9 @@ function InfoBand() {
           ))}
 
           <a
-            href="tel:+905078508806"
+            href="https://wa.me/905078508806"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex flex-col sm:flex-row items-center justify-center gap-2 font-body font-bold text-wood text-sm sm:text-base cursor-pointer transition-all duration-300 hover:text-cream"
           >
             <span className="text-xl sm:text-2xl">📞</span>

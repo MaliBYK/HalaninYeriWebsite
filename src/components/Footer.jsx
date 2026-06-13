@@ -75,7 +75,9 @@ function Footer() {
               <li>📍 Olympos Köyü, Kumluca, Antalya</li>
               <li>
                 <a
-                  href="tel:+905078508806"
+                  href="https://wa.me/905078508806"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cursor-pointer transition-all duration-300 hover:text-gold"
                 >
                   📞 +90 507 850 8806

@@ -45,6 +45,31 @@ h6 {
   max-height: 500px;
 }
 
+/* Success checkmark draw animation */
+.success-circle {
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  animation: successCircle 0.6s ease-out forwards;
+}
+
+.success-check {
+  stroke-dasharray: 34;
+  stroke-dashoffset: 34;
+  animation: successCheck 0.3s 0.5s ease-out forwards;
+}
+
+@keyframes successCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes successCheck {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;

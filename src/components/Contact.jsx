@@ -11,8 +11,8 @@ function Contact() {
       icon: '📞',
       title: 'Telefon',
       subtitle: '+90 507 850 8806',
-      href: 'tel:+905078508806',
-      external: false,
+      href: 'https://wa.me/905078508806',
+      external: true,
     },
     {
       icon: '📸',

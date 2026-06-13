@@ -17,6 +17,7 @@ const initialFormData = {
 function Reservation() {
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const today = new Date().toISOString().split('T')[0];
 
@@ -69,7 +70,7 @@ function Reservation() {
         body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: mesaj }),
       });
     } catch {
-      // Telegram bildirimi başarısız olsa da WhatsApp akışı devam eder
+      // Bildirim başarısız olsa da kullanıcıya başarı mesajı gösterilir
     }
   };
 
@@ -95,11 +96,8 @@ function Reservation() {
 
     sendToTelegram(mesaj);
 
-    window.open(
-      `https://wa.me/905078508806?text=${encodeURIComponent(mesaj)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    setFormData(initialFormData);
+    setShowSuccess(true);
   };
 
   const infoCards = [
@@ -127,7 +125,7 @@ function Reservation() {
             Yerinizi Ayırtın
           </h2>
           <p className="font-body text-cream/80 text-base sm:text-lg">
-            Formu doldurun, WhatsApp'tan anında onaylayalım
+            Formu doldurun, en kısa sürede sizinle iletişime geçelim
           </p>
         </div>
 
@@ -267,7 +265,7 @@ function Reservation() {
               type="submit"
               className="w-full bg-gold text-wood font-body font-bold text-lg px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-[1.02]"
             >
-              WhatsApp ile Rezervasyon Yap 💬
+              Rezervasyon Talebi Gönder
             </button>
           </form>
 
@@ -287,6 +285,58 @@ function Reservation() {
           </div>
         </div>
       </div>
+
+      {/* Success popup */}
+      {showSuccess && (
+        <div
+          className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 animate-fade-in"
+          onClick={() => setShowSuccess(false)}
+        >
+          <div
+            className="relative bg-cream rounded-2xl p-8 sm:p-10 max-w-md w-full text-center animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="absolute top-4 right-4 text-wood text-2xl cursor-pointer transition-all duration-300 hover:text-gold"
+              aria-label="Kapat"
+            >
+              ✕
+            </button>
+
+            <svg
+              className="w-20 h-20 mx-auto mb-4"
+              viewBox="0 0 52 52"
+              fill="none"
+            >
+              <circle
+                className="success-circle"
+                cx="26"
+                cy="26"
+                r="25"
+                stroke="#5A7A3A"
+                strokeWidth="2"
+              />
+              <path
+                className="success-check"
+                stroke="#5A7A3A"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14 27l7 7 17-17"
+              />
+            </svg>
+
+            <h3 className="font-display text-wood text-2xl sm:text-3xl font-bold mb-3">
+              Rezervasyon Tamamlandı
+            </h3>
+            <p className="font-body text-wood-light text-sm sm:text-base leading-relaxed">
+              Talebiniz başarıyla alındı. Ekibimiz en kısa süre içinde
+              tarafınızla iletişime geçerek rezervasyonunuzu onaylayacaktır.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

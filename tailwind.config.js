@@ -23,10 +23,15 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(40px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        scaleIn: {
+          '0%': { opacity: '0', transform: 'scale(0.85)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
+        'scale-in': 'scaleIn 0.3s ease-out forwards',
       },
     },
   },
