@@ -26,7 +26,7 @@ function Footer() {
             </p>
             <div className="flex items-center gap-4 text-2xl">
               <a
-                href="https://instagram.com/halaninyericamping"
+                href="https://instagram.com/halaninyericampingg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-pointer transition-all duration-300 hover:text-gold"
@@ -80,7 +80,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com/halaninyericamping"
+                  href="https://instagram.com/halaninyericampingg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-pointer transition-all duration-300 hover:text-gold"

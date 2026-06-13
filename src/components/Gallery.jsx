@@ -62,7 +62,7 @@ function Gallery() {
 
         <div className="text-center mt-12">
           <a
-            href="https://instagram.com/halaninyericamping"
+            href="https://instagram.com/halaninyericampingg"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-gold text-wood font-body font-bold px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105"

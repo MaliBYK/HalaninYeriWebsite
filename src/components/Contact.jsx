@@ -3,7 +3,7 @@ import { useLanguage } from '../i18n/useLanguage';
 const CARD_LINKS = [
   { href: 'https://wa.me/905078508806', external: true },
   { href: 'tel:+905078508806', external: false },
-  { href: 'https://instagram.com/halaninyericamping', external: true },
+  { href: 'https://instagram.com/halaninyericampingg', external: true },
 ];
 
 function Contact() {

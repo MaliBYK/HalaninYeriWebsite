@@ -1,14 +1,8 @@
 import { useLanguage } from '../i18n/useLanguage';
+import { openWhatsAppReservation } from '../utils/whatsapp';
 
 function About() {
   const { t } = useLanguage();
-
-  const scrollToReservation = () => {
-    const el = document.getElementById('reservation');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const features = t('about.features');
 
@@ -27,10 +21,10 @@ function About() {
             {t('about.text')}
           </p>
           <button
-            onClick={scrollToReservation}
+            onClick={() => openWhatsAppReservation(t('reservationWhatsApp.message'))}
             className="bg-gold text-wood font-body font-bold px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-wood hover:text-cream"
           >
-            {t('about.cta')}
+            🏕️ {t('about.cta')}
           </button>
         </div>
 

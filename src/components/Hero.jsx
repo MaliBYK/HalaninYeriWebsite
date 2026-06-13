@@ -1,4 +1,5 @@
 import { useLanguage } from '../i18n/useLanguage';
+import { openWhatsAppReservation } from '../utils/whatsapp';
 
 function Hero() {
   const { t } = useLanguage();
@@ -37,10 +38,10 @@ function Hero() {
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <button
-            onClick={() => scrollToSection('reservation')}
+            onClick={() => openWhatsAppReservation(t('reservationWhatsApp.message'))}
             className="bg-gold text-wood font-body font-bold text-lg px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105 shadow-lg"
           >
-            {t('hero.cta')}
+            🏕️ {t('hero.cta')}
           </button>
           <button
             onClick={() => scrollToSection('about')}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../i18n/useLanguage';
 import { LANGUAGES } from '../i18n/languages';
+import { openWhatsAppReservation } from '../utils/whatsapp';
 
 const NAV_LINK_IDS = ['hero', 'about', 'amenities', 'gallery', 'faq', 'contact'];
 
@@ -37,9 +38,8 @@ function Navbar() {
     setMenuOpen(false);
   };
 
-  const openReservationWhatsApp = () => {
-    const message = encodeURIComponent(t('reservationWhatsApp.message'));
-    window.open(`https://wa.me/905078508806?text=${message}`, '_blank', 'noopener,noreferrer');
+  const handleReservationClick = () => {
+    openWhatsAppReservation(t('reservationWhatsApp.message'));
     setMenuOpen(false);
   };
 
@@ -81,7 +81,7 @@ function Navbar() {
           {/* CTA Button */}
           <div className="hidden lg:block">
             <button
-              onClick={openReservationWhatsApp}
+              onClick={handleReservationClick}
               className="bg-gold text-wood font-body font-bold px-5 py-2 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105"
             >
               {t('nav.cta')}
@@ -150,7 +150,7 @@ function Navbar() {
           </button>
         ))}
         <button
-          onClick={openReservationWhatsApp}
+          onClick={handleReservationClick}
           className="bg-gold text-wood font-body font-bold px-8 py-3 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105 mt-4"
         >
           {t('nav.cta')}
