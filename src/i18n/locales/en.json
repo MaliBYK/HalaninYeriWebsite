@@ -191,5 +191,8 @@
   },
   "reservationWhatsApp": {
     "message": "🏕️ Hello, I would like to make a reservation"
+  },
+  "infoWhatsApp": {
+    "message": "Hi, could I get some information?"
   }
 }

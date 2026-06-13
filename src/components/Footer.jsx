@@ -1,4 +1,5 @@
 import { useLanguage } from '../i18n/useLanguage';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 
 const QUICK_LINK_IDS = ['hero', 'about', 'amenities', 'gallery', 'faq', 'contact'];
 
@@ -35,7 +36,7 @@ function Footer() {
                 📸
               </a>
               <a
-                href="https://wa.me/905078508806"
+                href={getWhatsAppUrl(t('infoWhatsApp.message'))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="cursor-pointer transition-all duration-300 hover:text-gold"

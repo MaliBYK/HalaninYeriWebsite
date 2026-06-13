@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../i18n/useLanguage';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 
 function WhatsAppFloat() {
   const { t } = useLanguage();
@@ -26,7 +27,7 @@ function WhatsAppFloat() {
         </span>
 
         <a
-          href="https://wa.me/905078508806"
+          href={getWhatsAppUrl(t('infoWhatsApp.message'))}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full shadow-lg cursor-pointer animate-pulse transition-all duration-300 hover:scale-110 hover:animate-none"

@@ -191,5 +191,8 @@
   },
   "reservationWhatsApp": {
     "message": "🏕️ Merhaba, rezervasyon yapmak istiyorum"
+  },
+  "infoWhatsApp": {
+    "message": "Merhaba, bilgi alabilir miyim?"
   }
 }

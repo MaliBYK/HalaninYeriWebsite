@@ -1,4 +1,5 @@
 import { useLanguage } from '../i18n/useLanguage';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 
 const CARD_LINKS = [
   { href: 'https://wa.me/905078508806', external: true },
@@ -11,6 +12,7 @@ function Contact() {
   const cards = t('contact.cards').map((card, index) => ({
     ...card,
     ...CARD_LINKS[index],
+    ...(index === 0 ? { href: getWhatsAppUrl(t('infoWhatsApp.message')) } : {}),
   }));
 
   return (

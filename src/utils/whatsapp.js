@@ -1,6 +1,9 @@
 export const WHATSAPP_NUMBER = '905078508806';
 
+export function getWhatsAppUrl(message) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
 export function openWhatsAppReservation(message) {
-  const encodedMessage = encodeURIComponent(message);
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
+  window.open(getWhatsAppUrl(message), '_blank', 'noopener,noreferrer');
 }
