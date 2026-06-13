@@ -1,8 +1,12 @@
+import { useLanguage } from '../i18n/useLanguage';
+
 function InfoBand() {
+  const { t } = useLanguage();
+
   const items = [
-    { icon: '📍', text: 'Olympos, Antalya' },
-    { icon: '⭐', text: '4.4/5 · 232 Yorum' },
-    { icon: '🏕️', text: 'Çadır Alanları' },
+    { icon: '📍', text: t('infoBand.location') },
+    { icon: '⭐', text: t('infoBand.rating') },
+    { icon: '🏕️', text: t('infoBand.tents') },
   ];
 
   return (
@@ -20,9 +24,7 @@ function InfoBand() {
           ))}
 
           <a
-            href="https://wa.me/905078508806"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="tel:+905078508806"
             className="flex flex-col sm:flex-row items-center justify-center gap-2 font-body font-bold text-wood text-sm sm:text-base cursor-pointer transition-all duration-300 hover:text-cream"
           >
             <span className="text-xl sm:text-2xl">📞</span>

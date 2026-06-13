@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLanguage } from '../i18n/useLanguage';
 
 // BotFather'dan alınan token ve getUpdates ile bulunan chat_id buraya girilir
 const TELEGRAM_BOT_TOKEN = '8797435117:AAE82yOFdkA0VJtejqwfMSqi0c7WtBggGro';
@@ -15,6 +16,7 @@ const initialFormData = {
 };
 
 function Reservation() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
@@ -30,33 +32,33 @@ function Reservation() {
     const newErrors = {};
 
     if (!formData.adSoyad.trim()) {
-      newErrors.adSoyad = 'Ad Soyad alanı zorunludur.';
+      newErrors.adSoyad = t('reservation.errors.adSoyad');
     }
     if (!formData.telefon.trim()) {
-      newErrors.telefon = 'Telefon alanı zorunludur.';
+      newErrors.telefon = t('reservation.errors.telefon');
     }
     if (!formData.girisTarihi) {
-      newErrors.girisTarihi = 'Giriş tarihi zorunludur.';
+      newErrors.girisTarihi = t('reservation.errors.girisTarihi');
     }
     if (!formData.cikisTarihi) {
-      newErrors.cikisTarihi = 'Çıkış tarihi zorunludur.';
+      newErrors.cikisTarihi = t('reservation.errors.cikisTarihi');
     }
     if (
       formData.girisTarihi &&
       formData.cikisTarihi &&
       formData.cikisTarihi <= formData.girisTarihi
     ) {
-      newErrors.cikisTarihi = 'Çıkış tarihi, giriş tarihinden sonra olmalıdır.';
+      newErrors.cikisTarihi = t('reservation.errors.cikisTarihiAfter');
     }
     if (
       !formData.kisiSayisi ||
       Number(formData.kisiSayisi) < 1 ||
       Number(formData.kisiSayisi) > 20
     ) {
-      newErrors.kisiSayisi = 'Kişi sayısı 1 ile 20 arasında olmalıdır.';
+      newErrors.kisiSayisi = t('reservation.errors.kisiSayisi');
     }
     if (!formData.cadirSayisi || Number(formData.cadirSayisi) < 1) {
-      newErrors.cadirSayisi = 'Çadır sayısı en az 1 olmalıdır.';
+      newErrors.cadirSayisi = t('reservation.errors.cadirSayisi');
     }
 
     return newErrors;
@@ -100,12 +102,7 @@ function Reservation() {
     setShowSuccess(true);
   };
 
-  const infoCards = [
-    { icon: '✅', text: 'Anında Onay' },
-    { icon: '✅', text: 'Ücretsiz İptal (48 saat öncesi)' },
-    { icon: '✅', text: 'Güvenli Ödeme' },
-    { icon: '📞', text: 'Telefon ile de rezervasyon yapılabilir' },
-  ];
+  const infoCards = t('reservation.infoCards');
 
   const inputClass =
     'w-full bg-cream text-wood font-body px-4 py-3 rounded-lg border-2 border-transparent focus:border-gold focus:outline-none transition-all duration-300';
@@ -122,10 +119,10 @@ function Reservation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="font-display text-cream text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Yerinizi Ayırtın
+            {t('reservation.title')}
           </h2>
           <p className="font-body text-cream/80 text-base sm:text-lg">
-            Formu doldurun, en kısa sürede sizinle iletişime geçelim
+            {t('reservation.subtitle')}
           </p>
         </div>
 
@@ -138,7 +135,7 @@ function Reservation() {
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className={labelClass} htmlFor="adSoyad">
-                  Ad Soyad
+                  {t('reservation.labels.adSoyad')}
                 </label>
                 <input
                   type="text"
@@ -147,14 +144,14 @@ function Reservation() {
                   value={formData.adSoyad}
                   onChange={handleChange}
                   className={inputClass}
-                  placeholder="Adınız ve Soyadınız"
+                  placeholder={t('reservation.placeholders.adSoyad')}
                 />
                 {errors.adSoyad && <p className={errorClass}>{errors.adSoyad}</p>}
               </div>
 
               <div>
                 <label className={labelClass} htmlFor="telefon">
-                  Telefon
+                  {t('reservation.labels.telefon')}
                 </label>
                 <input
                   type="tel"
@@ -163,7 +160,7 @@ function Reservation() {
                   value={formData.telefon}
                   onChange={handleChange}
                   className={inputClass}
-                  placeholder="05XX XXX XX XX"
+                  placeholder={t('reservation.placeholders.telefon')}
                 />
                 {errors.telefon && <p className={errorClass}>{errors.telefon}</p>}
               </div>
@@ -172,7 +169,7 @@ function Reservation() {
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className={labelClass} htmlFor="girisTarihi">
-                  Giriş Tarihi
+                  {t('reservation.labels.girisTarihi')}
                 </label>
                 <input
                   type="date"
@@ -190,7 +187,7 @@ function Reservation() {
 
               <div>
                 <label className={labelClass} htmlFor="cikisTarihi">
-                  Çıkış Tarihi
+                  {t('reservation.labels.cikisTarihi')}
                 </label>
                 <input
                   type="date"
@@ -210,7 +207,7 @@ function Reservation() {
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className={labelClass} htmlFor="kisiSayisi">
-                  Kişi Sayısı
+                  {t('reservation.labels.kisiSayisi')}
                 </label>
                 <input
                   type="number"
@@ -229,7 +226,7 @@ function Reservation() {
 
               <div>
                 <label className={labelClass} htmlFor="cadirSayisi">
-                  Çadır Sayısı
+                  {t('reservation.labels.cadirSayisi')}
                 </label>
                 <input
                   type="number"
@@ -248,7 +245,7 @@ function Reservation() {
 
             <div>
               <label className={labelClass} htmlFor="notlar">
-                Notlar
+                {t('reservation.labels.notlar')}
               </label>
               <textarea
                 id="notlar"
@@ -257,7 +254,7 @@ function Reservation() {
                 onChange={handleChange}
                 rows={4}
                 className={`${inputClass} resize-none`}
-                placeholder="Eklemek istediğiniz bir not var mı? (opsiyonel)"
+                placeholder={t('reservation.placeholders.notlar')}
               />
             </div>
 
@@ -265,7 +262,7 @@ function Reservation() {
               type="submit"
               className="w-full bg-gold text-wood font-body font-bold text-lg px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-[1.02]"
             >
-              Rezervasyon Talebi Gönder
+              {t('reservation.submit')}
             </button>
           </form>
 
@@ -299,7 +296,7 @@ function Reservation() {
             <button
               onClick={() => setShowSuccess(false)}
               className="absolute top-4 right-4 text-wood text-2xl cursor-pointer transition-all duration-300 hover:text-gold"
-              aria-label="Kapat"
+              aria-label={t('reservation.success.close')}
             >
               ✕
             </button>
@@ -328,11 +325,10 @@ function Reservation() {
             </svg>
 
             <h3 className="font-display text-wood text-2xl sm:text-3xl font-bold mb-3">
-              Rezervasyon Tamamlandı
+              {t('reservation.success.title')}
             </h3>
             <p className="font-body text-wood-light text-sm sm:text-base leading-relaxed">
-              Talebiniz başarıyla alındı. Ekibimiz en kısa süre içinde
-              tarafınızla iletişime geçerek rezervasyonunuzu onaylayacaktır.
+              {t('reservation.success.message')}
             </p>
           </div>
         </div>

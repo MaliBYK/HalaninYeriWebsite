@@ -1,40 +1,23 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../i18n/useLanguage';
 
-const GALLERY_ITEMS = [
-  {
-    label: '🌳 Portakal Bahçesi',
-    gradient: 'from-forest to-gold',
-    span: 'row-span-2',
-  },
-  {
-    label: '⛺ Çadır Alanları',
-    gradient: 'from-wood to-wood-light',
-    span: '',
-  },
-  {
-    label: '🪵 Ahşap Platformlar',
-    gradient: 'from-wood-light to-gold',
-    span: 'sm:col-span-2',
-  },
-  {
-    label: '🔥 Ateş Alanı',
-    gradient: 'from-gold to-wood',
-    span: '',
-  },
-  {
-    label: '🍳 Ortak Mutfak',
-    gradient: 'from-forest to-wood-light',
-    span: '',
-  },
-  {
-    label: '🌄 Olympos Yolu',
-    gradient: 'from-wood to-forest',
-    span: 'row-span-2',
-  },
+const GALLERY_STYLES = [
+  { gradient: 'from-forest to-gold', span: 'row-span-2' },
+  { gradient: 'from-wood to-wood-light', span: '' },
+  { gradient: 'from-wood-light to-gold', span: 'sm:col-span-2' },
+  { gradient: 'from-gold to-wood', span: '' },
+  { gradient: 'from-forest to-wood-light', span: '' },
+  { gradient: 'from-wood to-forest', span: 'row-span-2' },
 ];
 
 function Gallery() {
+  const { t } = useLanguage();
   const [selected, setSelected] = useState(null);
+
+  const items = t('gallery.items').map((item, index) => ({
+    ...item,
+    ...GALLERY_STYLES[index],
+  }));
 
   useEffect(() => {
     if (selected === null) return;
@@ -53,11 +36,11 @@ function Gallery() {
     <section id="gallery" className="fade-section bg-wood py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-cream text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
-          Kamp Alanımızdan Kareler
+          {t('gallery.title')}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[180px] sm:auto-rows-[200px] grid-flow-dense">
-          {GALLERY_ITEMS.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={item.label}
               onClick={() => setSelected(index)}
@@ -70,7 +53,7 @@ function Gallery() {
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-wood/0 group-hover:bg-wood/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <span className="font-body text-cream text-lg font-bold">
-                  🔍 Büyüt
+                  {t('gallery.zoom')}
                 </span>
               </div>
             </div>
@@ -84,7 +67,7 @@ function Gallery() {
             rel="noopener noreferrer"
             className="inline-block bg-gold text-wood font-body font-bold px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105"
           >
-            📸 @halaninyericamping
+            {t('gallery.instagramCta')}
           </a>
         </div>
       </div>
@@ -96,17 +79,17 @@ function Gallery() {
           onClick={() => setSelected(null)}
         >
           <div
-            className={`relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden bg-gradient-to-br ${GALLERY_ITEMS[selected].gradient} flex items-center justify-center`}
+            className={`relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden bg-gradient-to-br ${items[selected].gradient} flex items-center justify-center`}
             onClick={(e) => e.stopPropagation()}
           >
             <span className="font-display text-white text-2xl sm:text-3xl font-bold text-center px-6">
-              {GALLERY_ITEMS[selected].label}
+              {items[selected].label}
             </span>
 
             <button
               onClick={() => setSelected(null)}
               className="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-all duration-300 hover:text-gold"
-              aria-label="Kapat"
+              aria-label={t('gallery.close')}
             >
               ✕
             </button>

@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "brand": "🏕️ Hala'nın Yeri",
+    "cta": "Book Now",
+    "menuToggle": "Toggle menu",
+    "languageLabel": "Language"
+  },
+  "navLinks": {
+    "hero": "Home",
+    "about": "About",
+    "amenities": "Amenities",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "✦ Olympos, Antalya ✦",
+    "title": "A Camping Experience Under the Orange Trees",
+    "subtitle": "A peaceful escape in the heart of nature, just a 10-minute walk from the ancient city of Olympos",
+    "cta": "Book Now",
+    "explore": "Explore ↓",
+    "rating": "⭐ 4.4 · 232 Reviews"
+  },
+  "infoBand": {
+    "location": "Olympos, Antalya",
+    "rating": "4.4/5 · 232 Reviews",
+    "tents": "Tent Areas"
+  },
+  "about": {
+    "label": "About Us",
+    "title": "Surrounded by Nature, Steeped in History",
+    "text": "Just a 10-minute walk from the ancient city of Olympos, a peaceful camping experience awaits you in the cool shade of an orange grove. Close to local markets, our site offers a fire pit, wooden platforms and a shared kitchen — letting you enjoy an unforgettable getaway in the heart of nature without sacrificing comfort.",
+    "cta": "Book Now →",
+    "features": [
+      { "icon": "🍊", "title": "Orange Grove", "desc": "Cool air and natural shade" },
+      { "icon": "🏛️", "title": "Near the Ancient City", "desc": "10-minute walk" },
+      { "icon": "🔥", "title": "Fire Pit", "desc": "Unforgettable camping nights" },
+      { "icon": "🌿", "title": "Peaceful Setting", "desc": "Away from city noise" }
+    ]
+  },
+  "amenities": {
+    "title": "Everything You Need for Comfort",
+    "items": [
+      { "icon": "📶", "title": "Free Wi-Fi", "desc": "Stay connected throughout your stay" },
+      { "icon": "🪵", "title": "Wooden Platforms", "desc": "A ready base for your tent" },
+      { "icon": "🚿", "title": "Showers & WC", "desc": "Clean shared facilities" },
+      { "icon": "🍳", "title": "Shared Kitchen", "desc": "Prepare your own meals" },
+      { "icon": "🔥", "title": "Fire Pit", "desc": "A safe area for campfires" },
+      { "icon": "⚡", "title": "Electricity", "desc": "Charging and lighting available" },
+      { "icon": "🚗", "title": "Free Parking", "desc": "On-site and roadside" },
+      { "icon": "💧", "title": "Running Water", "desc": "Clean water access 24/7" },
+      { "icon": "👨‍👩‍👧", "title": "Family Discount", "desc": "Special rates for children" }
+    ]
+  },
+  "gallery": {
+    "title": "Snapshots From Our Campsite",
+    "items": [
+      { "label": "🌳 Orange Grove" },
+      { "label": "⛺ Tent Areas" },
+      { "label": "🪵 Wooden Platforms" },
+      { "label": "🔥 Fire Pit" },
+      { "label": "🍳 Shared Kitchen" },
+      { "label": "🌄 Road to Olympos" }
+    ],
+    "zoom": "🔍 Zoom in",
+    "instagramCta": "📸 @halaninyericamping",
+    "close": "Close"
+  },
+  "reservation": {
+    "title": "Reserve Your Spot",
+    "subtitle": "Fill out the form and we'll get back to you as soon as possible",
+    "labels": {
+      "adSoyad": "Full Name",
+      "telefon": "Phone",
+      "girisTarihi": "Check-in Date",
+      "cikisTarihi": "Check-out Date",
+      "kisiSayisi": "Number of Guests",
+      "cadirSayisi": "Number of Tents",
+      "notlar": "Notes"
+    },
+    "placeholders": {
+      "adSoyad": "Your full name",
+      "telefon": "05XX XXX XX XX",
+      "notlar": "Anything you'd like to add? (optional)"
+    },
+    "errors": {
+      "adSoyad": "Full name is required.",
+      "telefon": "Phone number is required.",
+      "girisTarihi": "Check-in date is required.",
+      "cikisTarihi": "Check-out date is required.",
+      "cikisTarihiAfter": "Check-out date must be after the check-in date.",
+      "kisiSayisi": "Number of guests must be between 1 and 20.",
+      "cadirSayisi": "Number of tents must be at least 1."
+    },
+    "submit": "Send Reservation Request",
+    "infoCards": [
+      { "icon": "✅", "text": "Instant Confirmation" },
+      { "icon": "✅", "text": "Free Cancellation (up to 48 hours before)" },
+      { "icon": "✅", "text": "Secure Payment" },
+      { "icon": "📞", "text": "Reservations can also be made by phone" }
+    ],
+    "success": {
+      "title": "Reservation Received",
+      "message": "Your request has been received successfully. Our team will contact you shortly to confirm your reservation.",
+      "close": "Close"
+    }
+  },
+  "location": {
+    "title": "Find Us",
+    "items": [
+      { "icon": "📍", "text": "Olympos Village, Kumluca, Antalya" },
+      { "icon": "🚗", "text": "90 min from Antalya city center" },
+      { "icon": "🚌", "text": "Regular minibus from Kumluca" },
+      { "icon": "✈️", "text": "Antalya Airport ~100 km" },
+      { "icon": "🏛️", "text": "10-minute walk to Olympos Ancient City" },
+      { "icon": "🏖️", "text": "15-minute walk to Olympos Beach" }
+    ],
+    "mapTitle": "Hala'nın Yeri Camping Location",
+    "mapCta": "Open in Google Maps →"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "How far in advance should I make a reservation?",
+        "answer": "During peak season (June-September), we recommend contacting us at least 3-4 days in advance; for other periods, 1-2 days is enough. Please reach out via WhatsApp."
+      },
+      {
+        "question": "Do I need to bring my own tent?",
+        "answer": "Yes, you'll need to bring your own tent. We provide wooden platforms for setting it up."
+      },
+      {
+        "question": "How is pricing calculated?",
+        "answer": "Pricing is per person, per night. Discounts are available for children. Contact us via WhatsApp for current rates."
+      },
+      {
+        "question": "Are pets allowed?",
+        "answer": "Leashed and well-behaved pets are welcome. Just let us know when making your reservation."
+      },
+      {
+        "question": "Is parking free?",
+        "answer": "Yes, both on-site and roadside parking are completely free."
+      },
+      {
+        "question": "Is electricity and charging available?",
+        "answer": "Yes, an electricity connection is available."
+      },
+      {
+        "question": "How do I get to Olympos?",
+        "answer": "There are regular minibuses from Kumluca or Finike. By car, it's about 1.5 hours from Antalya."
+      },
+      {
+        "question": "Is there a quiet hours policy?",
+        "answer": "We have a quiet hours policy after 23:00. We kindly ask all guests to respect it for a peaceful camping experience."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "cards": [
+      { "icon": "📱", "title": "WhatsApp", "subtitle": "+90 507 850 8806" },
+      { "icon": "📞", "title": "Phone", "subtitle": "+90 507 850 8806" },
+      { "icon": "📸", "title": "Instagram", "subtitle": "@halaninyericamping" }
+    ]
+  },
+  "footer": {
+    "brand": "🏕️ Hala'nın Yeri",
+    "slogan": "A Camping Experience Under the Orange Trees",
+    "quickLinksTitle": "Quick Links",
+    "contactTitle": "Contact",
+    "address": "📍 Olympos Village, Kumluca, Antalya",
+    "instagramHandle": "📸 @halaninyericamping",
+    "copyright": "© 2025 Hala'nın Yeri Camping · Olympos, Antalya"
+  },
+  "whatsappFloat": {
+    "tooltip": "Message us to reserve!",
+    "ariaLabel": "Contact us on WhatsApp"
+  },
+  "reservationWhatsApp": {
+    "message": "🏕️ Hello, I would like to make a reservation"
+  }
+}

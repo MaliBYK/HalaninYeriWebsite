@@ -1,48 +1,10 @@
 import { useState } from 'react';
-
-const FAQ_ITEMS = [
-  {
-    question: 'Rezervasyon için ne kadar önceden başvurmalıyım?',
-    answer:
-      'Yoğun sezonda (Haziran-Eylül) en az 3-4 gün öncesinden, diğer dönemlerde 1-2 gün öncesinden WhatsApp ile iletişime geçmenizi öneririz.',
-  },
-  {
-    question: 'Çadır getirmem gerekiyor mu?',
-    answer:
-      'Evet, çadırınızı kendiniz getirmeniz gerekmektedir. Çadır kurulumu için ahşap platformlarımız mevcuttur.',
-  },
-  {
-    question: 'Ücretlendirme nasıl yapılıyor?',
-    answer:
-      "Gecelik kişi başı ücretlendirme uygulanmaktadır. Çocuklar için indirim mevcuttur. Güncel fiyatlar için WhatsApp'tan bilgi alabilirsiniz.",
-  },
-  {
-    question: 'Evcil hayvan kabul ediliyor mu?',
-    answer:
-      'Tasmalı ve sakin evcil hayvanlar kabul edilmektedir. Rezervasyon sırasında belirtmeniz yeterlidir.',
-  },
-  {
-    question: 'Otopark ücretsiz mi?',
-    answer: 'Evet, saha içi ve yol kenarı otopark tamamen ücretsizdir.',
-  },
-  {
-    question: 'Elektrik ve şarj imkânı var mı?',
-    answer: 'Evet, elektrik bağlantısı mevcuttur.',
-  },
-  {
-    question: "Olympos'a nasıl ulaşılır?",
-    answer:
-      "Kumluca veya Finike'den düzenli dolmuş seferleri vardır. Araçla Antalya'dan yaklaşık 1.5 saattir.",
-  },
-  {
-    question: 'Gece gürültü kuralı var mı?',
-    answer:
-      '23:00 sonrası sessizlik kuralımız vardır. Huzurlu bir kamp deneyimi için tüm misafirlerimizin uymasını rica ederiz.',
-  },
-];
+import { useLanguage } from '../i18n/useLanguage';
 
 function FAQ() {
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(null);
+  const items = t('faq.items');
 
   const toggle = (index) => {
     setActiveIndex((prev) => (prev === index ? null : index));
@@ -52,11 +14,11 @@ function FAQ() {
     <section id="faq" className="fade-section bg-wood py-16 sm:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-cream text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
-          Sıkça Sorulan Sorular
+          {t('faq.title')}
         </h2>
 
         <div className="flex flex-col gap-4">
-          {FAQ_ITEMS.map((item, index) => {
+          {items.map((item, index) => {
             const isOpen = activeIndex === index;
             return (
               <div

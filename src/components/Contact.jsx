@@ -1,33 +1,23 @@
+import { useLanguage } from '../i18n/useLanguage';
+
+const CARD_LINKS = [
+  { href: 'https://wa.me/905078508806', external: true },
+  { href: 'tel:+905078508806', external: false },
+  { href: 'https://instagram.com/halaninyericamping', external: true },
+];
+
 function Contact() {
-  const cards = [
-    {
-      icon: '📱',
-      title: 'WhatsApp',
-      subtitle: '+90 507 850 8806',
-      href: 'https://wa.me/905078508806',
-      external: true,
-    },
-    {
-      icon: '📞',
-      title: 'Telefon',
-      subtitle: '+90 507 850 8806',
-      href: 'https://wa.me/905078508806',
-      external: true,
-    },
-    {
-      icon: '📸',
-      title: 'Instagram',
-      subtitle: '@halaninyericamping',
-      href: 'https://instagram.com/halaninyericamping',
-      external: true,
-    },
-  ];
+  const { t } = useLanguage();
+  const cards = t('contact.cards').map((card, index) => ({
+    ...card,
+    ...CARD_LINKS[index],
+  }));
 
   return (
     <section id="contact" className="fade-section bg-cream py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-wood text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
-          İletişime Geçin
+          {t('contact.title')}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

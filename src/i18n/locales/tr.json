@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "brand": "🏕️ Hala'nın Yeri",
+    "cta": "Rezervasyon Yap",
+    "menuToggle": "Menüyü aç/kapat",
+    "languageLabel": "Dil"
+  },
+  "navLinks": {
+    "hero": "Ana Sayfa",
+    "about": "Hakkımızda",
+    "amenities": "Olanaklar",
+    "gallery": "Galeri",
+    "faq": "SSS",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "badge": "✦ Olympos, Antalya ✦",
+    "title": "Portakal Ağaçları Altında Kamp Deneyimi",
+    "subtitle": "Olympos Antik Kenti'ne 10 dakika yürüme mesafesinde, doğanın kalbinde huzurlu bir kaçış",
+    "cta": "Rezervasyon Yap",
+    "explore": "Keşfet ↓",
+    "rating": "⭐ 4.4 · 232 Yorum"
+  },
+  "infoBand": {
+    "location": "Olympos, Antalya",
+    "rating": "4.4/5 · 232 Yorum",
+    "tents": "Çadır Alanları"
+  },
+  "about": {
+    "label": "Hakkımızda",
+    "title": "Doğayla İç İçe, Tarihin Yanı Başında",
+    "text": "Olympos antik kentine 10 dakika yürüme mesafesinde, portakal bahçesinin serinliğinde huzurlu bir kamp deneyimi sizi bekliyor. Zincir marketlere yakın konumumuzda ateş alanı, ahşap platformlar ve ortak mutfak imkânlarıyla doğanın tam kalbinde, konforunuzdan ödün vermeden unutulmaz bir tatil geçirebilirsiniz.",
+    "cta": "Rezervasyon Yap →",
+    "features": [
+      { "icon": "🍊", "title": "Portakal Bahçesi", "desc": "Serinlik ve doğal gölge" },
+      { "icon": "🏛️", "title": "Antik Kent Yakını", "desc": "10 dk yürüyüş" },
+      { "icon": "🔥", "title": "Ateş Alanı", "desc": "Unutulmaz kamp geceleri" },
+      { "icon": "🌿", "title": "Huzurlu Ortam", "desc": "Şehir gürültüsünden uzak" }
+    ]
+  },
+  "amenities": {
+    "title": "Konforunuz İçin Her Şey Düşünüldü",
+    "items": [
+      { "icon": "📶", "title": "Ücretsiz Wi-Fi", "desc": "Kamp boyunca bağlantıda kalın" },
+      { "icon": "🪵", "title": "Ahşap Platformlar", "desc": "Çadırınız için hazır zemin" },
+      { "icon": "🚿", "title": "Duş & WC", "desc": "Temiz ortak kullanım alanları" },
+      { "icon": "🍳", "title": "Ortak Mutfak", "desc": "Yemeklerinizi hazırlayın" },
+      { "icon": "🔥", "title": "Ateş Alanı", "desc": "Güvenli ateş yakma bölgesi" },
+      { "icon": "⚡", "title": "Elektrik", "desc": "Şarj ve aydınlatma imkânı" },
+      { "icon": "🚗", "title": "Ücretsiz Otopark", "desc": "Saha içi ve yol kenarı" },
+      { "icon": "💧", "title": "Akan Su", "desc": "7/24 temiz su erişimi" },
+      { "icon": "👨‍👩‍👧", "title": "Aile İndirimi", "desc": "Çocuklar için özel fiyat" }
+    ]
+  },
+  "gallery": {
+    "title": "Kamp Alanımızdan Kareler",
+    "items": [
+      { "label": "🌳 Portakal Bahçesi" },
+      { "label": "⛺ Çadır Alanları" },
+      { "label": "🪵 Ahşap Platformlar" },
+      { "label": "🔥 Ateş Alanı" },
+      { "label": "🍳 Ortak Mutfak" },
+      { "label": "🌄 Olympos Yolu" }
+    ],
+    "zoom": "🔍 Büyüt",
+    "instagramCta": "📸 @halaninyericamping",
+    "close": "Kapat"
+  },
+  "reservation": {
+    "title": "Yerinizi Ayırtın",
+    "subtitle": "Formu doldurun, en kısa sürede sizinle iletişime geçelim",
+    "labels": {
+      "adSoyad": "Ad Soyad",
+      "telefon": "Telefon",
+      "girisTarihi": "Giriş Tarihi",
+      "cikisTarihi": "Çıkış Tarihi",
+      "kisiSayisi": "Kişi Sayısı",
+      "cadirSayisi": "Çadır Sayısı",
+      "notlar": "Notlar"
+    },
+    "placeholders": {
+      "adSoyad": "Adınız ve Soyadınız",
+      "telefon": "05XX XXX XX XX",
+      "notlar": "Eklemek istediğiniz bir not var mı? (opsiyonel)"
+    },
+    "errors": {
+      "adSoyad": "Ad Soyad alanı zorunludur.",
+      "telefon": "Telefon alanı zorunludur.",
+      "girisTarihi": "Giriş tarihi zorunludur.",
+      "cikisTarihi": "Çıkış tarihi zorunludur.",
+      "cikisTarihiAfter": "Çıkış tarihi, giriş tarihinden sonra olmalıdır.",
+      "kisiSayisi": "Kişi sayısı 1 ile 20 arasında olmalıdır.",
+      "cadirSayisi": "Çadır sayısı en az 1 olmalıdır."
+    },
+    "submit": "Rezervasyon Talebi Gönder",
+    "infoCards": [
+      { "icon": "✅", "text": "Anında Onay" },
+      { "icon": "✅", "text": "Ücretsiz İptal (48 saat öncesi)" },
+      { "icon": "✅", "text": "Güvenli Ödeme" },
+      { "icon": "📞", "text": "Telefon ile de rezervasyon yapılabilir" }
+    ],
+    "success": {
+      "title": "Rezervasyon Tamamlandı",
+      "message": "Talebiniz başarıyla alındı. Ekibimiz en kısa süre içinde tarafınızla iletişime geçerek rezervasyonunuzu onaylayacaktır.",
+      "close": "Kapat"
+    }
+  },
+  "location": {
+    "title": "Bizi Bulun",
+    "items": [
+      { "icon": "📍", "text": "Olympos Köyü, Kumluca, Antalya" },
+      { "icon": "🚗", "text": "Antalya merkezden 90 dk" },
+      { "icon": "🚌", "text": "Kumluca'dan düzenli dolmuş" },
+      { "icon": "✈️", "text": "Antalya Havalimanı ~100 km" },
+      { "icon": "🏛️", "text": "Olympos Antik Kenti 10 dk yürüyüş" },
+      { "icon": "🏖️", "text": "Olympos Plajı 15 dk yürüyüş" }
+    ],
+    "mapTitle": "Hala'nın Yeri Camping Konumu",
+    "mapCta": "Google Maps'te Aç →"
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "items": [
+      {
+        "question": "Rezervasyon için ne kadar önceden başvurmalıyım?",
+        "answer": "Yoğun sezonda (Haziran-Eylül) en az 3-4 gün öncesinden, diğer dönemlerde 1-2 gün öncesinden WhatsApp ile iletişime geçmenizi öneririz."
+      },
+      {
+        "question": "Çadır getirmem gerekiyor mu?",
+        "answer": "Evet, çadırınızı kendiniz getirmeniz gerekmektedir. Çadır kurulumu için ahşap platformlarımız mevcuttur."
+      },
+      {
+        "question": "Ücretlendirme nasıl yapılıyor?",
+        "answer": "Gecelik kişi başı ücretlendirme uygulanmaktadır. Çocuklar için indirim mevcuttur. Güncel fiyatlar için WhatsApp'tan bilgi alabilirsiniz."
+      },
+      {
+        "question": "Evcil hayvan kabul ediliyor mu?",
+        "answer": "Tasmalı ve sakin evcil hayvanlar kabul edilmektedir. Rezervasyon sırasında belirtmeniz yeterlidir."
+      },
+      {
+        "question": "Otopark ücretsiz mi?",
+        "answer": "Evet, saha içi ve yol kenarı otopark tamamen ücretsizdir."
+      },
+      {
+        "question": "Elektrik ve şarj imkânı var mı?",
+        "answer": "Evet, elektrik bağlantısı mevcuttur."
+      },
+      {
+        "question": "Olympos'a nasıl ulaşılır?",
+        "answer": "Kumluca veya Finike'den düzenli dolmuş seferleri vardır. Araçla Antalya'dan yaklaşık 1.5 saattir."
+      },
+      {
+        "question": "Gece gürültü kuralı var mı?",
+        "answer": "23:00 sonrası sessizlik kuralımız vardır. Huzurlu bir kamp deneyimi için tüm misafirlerimizin uymasını rica ederiz."
+      }
+    ]
+  },
+  "contact": {
+    "title": "İletişime Geçin",
+    "cards": [
+      { "icon": "📱", "title": "WhatsApp", "subtitle": "+90 507 850 8806" },
+      { "icon": "📞", "title": "Telefon", "subtitle": "+90 507 850 8806" },
+      { "icon": "📸", "title": "Instagram", "subtitle": "@halaninyericamping" }
+    ]
+  },
+  "footer": {
+    "brand": "🏕️ Hala'nın Yeri",
+    "slogan": "Portakal Ağaçları Altında Kamp Deneyimi",
+    "quickLinksTitle": "Hızlı Linkler",
+    "contactTitle": "İletişim",
+    "address": "📍 Olympos Köyü, Kumluca, Antalya",
+    "instagramHandle": "📸 @halaninyericamping",
+    "copyright": "© 2025 Hala'nın Yeri Camping · Olympos, Antalya"
+  },
+  "whatsappFloat": {
+    "tooltip": "Rezervasyon için yazın!",
+    "ariaLabel": "WhatsApp ile iletişime geç"
+  },
+  "reservationWhatsApp": {
+    "message": "🏕️ Merhaba, rezervasyon yapmak istiyorum"
+  }
+}

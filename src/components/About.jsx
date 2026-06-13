@@ -1,4 +1,8 @@
+import { useLanguage } from '../i18n/useLanguage';
+
 function About() {
+  const { t } = useLanguage();
+
   const scrollToReservation = () => {
     const el = document.getElementById('reservation');
     if (el) {
@@ -6,28 +10,7 @@ function About() {
     }
   };
 
-  const features = [
-    {
-      icon: '🍊',
-      title: 'Portakal Bahçesi',
-      desc: 'Serinlik ve doğal gölge',
-    },
-    {
-      icon: '🏛️',
-      title: 'Antik Kent Yakını',
-      desc: '10 dk yürüyüş',
-    },
-    {
-      icon: '🔥',
-      title: 'Ateş Alanı',
-      desc: 'Unutulmaz kamp geceleri',
-    },
-    {
-      icon: '🌿',
-      title: 'Huzurlu Ortam',
-      desc: 'Şehir gürültüsünden uzak',
-    },
-  ];
+  const features = t('about.features');
 
   return (
     <section id="about" className="fade-section bg-cream py-16 sm:py-24">
@@ -35,23 +18,19 @@ function About() {
         {/* Left column */}
         <div>
           <span className="inline-block text-gold font-body font-bold text-sm tracking-[0.2em] uppercase mb-3">
-            Hakkımızda
+            {t('about.label')}
           </span>
           <h2 className="font-display text-wood text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Doğayla İç İçe, Tarihin Yanı Başında
+            {t('about.title')}
           </h2>
           <p className="font-body text-wood-light text-base sm:text-lg leading-relaxed mb-8">
-            Olympos antik kentine 10 dakika yürüme mesafesinde, portakal
-            bahçesinin serinliğinde huzurlu bir kamp deneyimi sizi bekliyor.
-            Zincir marketlere yakın konumumuzda ateş alanı, ahşap platformlar
-            ve ortak mutfak imkânlarıyla doğanın tam kalbinde, konforunuzdan
-            ödün vermeden unutulmaz bir tatil geçirebilirsiniz.
+            {t('about.text')}
           </p>
           <button
             onClick={scrollToReservation}
             className="bg-gold text-wood font-body font-bold px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-wood hover:text-cream"
           >
-            Rezervasyon Yap →
+            {t('about.cta')}
           </button>
         </div>
 

@@ -1,13 +1,10 @@
-const QUICK_LINKS = [
-  { label: 'Ana Sayfa', id: 'hero' },
-  { label: 'Hakkımızda', id: 'about' },
-  { label: 'Olanaklar', id: 'amenities' },
-  { label: 'Galeri', id: 'gallery' },
-  { label: 'SSS', id: 'faq' },
-  { label: 'İletişim', id: 'contact' },
-];
+import { useLanguage } from '../i18n/useLanguage';
+
+const QUICK_LINK_IDS = ['hero', 'about', 'amenities', 'gallery', 'faq', 'contact'];
 
 function Footer() {
+  const { t } = useLanguage();
+
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -22,10 +19,10 @@ function Footer() {
           {/* Logo + slogan + social */}
           <div>
             <h3 className="font-display text-2xl font-bold mb-3">
-              🏕️ Hala'nın Yeri
+              {t('footer.brand')}
             </h3>
             <p className="font-body text-cream/70 text-sm mb-5">
-              Portakal Ağaçları Altında Kamp Deneyimi
+              {t('footer.slogan')}
             </p>
             <div className="flex items-center gap-4 text-2xl">
               <a
@@ -52,16 +49,16 @@ function Footer() {
           {/* Quick links */}
           <div>
             <h4 className="font-display text-lg font-bold mb-4">
-              Hızlı Linkler
+              {t('footer.quickLinksTitle')}
             </h4>
             <ul className="flex flex-col gap-2">
-              {QUICK_LINKS.map((link) => (
-                <li key={link.id}>
+              {QUICK_LINK_IDS.map((id) => (
+                <li key={id}>
                   <button
-                    onClick={() => scrollToSection(link.id)}
+                    onClick={() => scrollToSection(id)}
                     className="font-body text-cream/70 cursor-pointer transition-all duration-300 hover:text-gold"
                   >
-                    {link.label}
+                    {t(`navLinks.${id}`)}
                   </button>
                 </li>
               ))}
@@ -70,14 +67,12 @@ function Footer() {
 
           {/* Contact info */}
           <div>
-            <h4 className="font-display text-lg font-bold mb-4">İletişim</h4>
+            <h4 className="font-display text-lg font-bold mb-4">{t('footer.contactTitle')}</h4>
             <ul className="flex flex-col gap-2 font-body text-cream/70 text-sm">
-              <li>📍 Olympos Köyü, Kumluca, Antalya</li>
+              <li>{t('footer.address')}</li>
               <li>
                 <a
-                  href="https://wa.me/905078508806"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="tel:+905078508806"
                   className="cursor-pointer transition-all duration-300 hover:text-gold"
                 >
                   📞 +90 507 850 8806
@@ -90,7 +85,7 @@ function Footer() {
                   rel="noopener noreferrer"
                   className="cursor-pointer transition-all duration-300 hover:text-gold"
                 >
-                  📸 @halaninyericamping
+                  {t('footer.instagramHandle')}
                 </a>
               </li>
             </ul>
@@ -100,7 +95,7 @@ function Footer() {
 
       <div className="border-t border-cream/10 py-6">
         <p className="text-center font-body text-cream/60 text-sm px-4">
-          © 2025 Hala'nın Yeri Camping · Olympos, Antalya
+          {t('footer.copyright')}
         </p>
       </div>
     </footer>

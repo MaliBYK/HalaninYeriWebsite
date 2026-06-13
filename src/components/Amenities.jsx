@@ -1,21 +1,14 @@
+import { useLanguage } from '../i18n/useLanguage';
+
 function Amenities() {
-  const amenities = [
-    { icon: '📶', title: 'Ücretsiz Wi-Fi', desc: 'Kamp boyunca bağlantıda kalın' },
-    { icon: '🪵', title: 'Ahşap Platformlar', desc: 'Çadırınız için hazır zemin' },
-    { icon: '🚿', title: 'Duş & WC', desc: 'Temiz ortak kullanım alanları' },
-    { icon: '🍳', title: 'Ortak Mutfak', desc: 'Yemeklerinizi hazırlayın' },
-    { icon: '🔥', title: 'Ateş Alanı', desc: 'Güvenli ateş yakma bölgesi' },
-    { icon: '⚡', title: 'Elektrik', desc: 'Şarj ve aydınlatma imkânı' },
-    { icon: '🚗', title: 'Ücretsiz Otopark', desc: 'Saha içi ve yol kenarı' },
-    { icon: '💧', title: 'Akan Su', desc: '7/24 temiz su erişimi' },
-    { icon: '👨‍👩‍👧', title: 'Aile İndirimi', desc: 'Çocuklar için özel fiyat' },
-  ];
+  const { t } = useLanguage();
+  const amenities = t('amenities.items');
 
   return (
     <section id="amenities" className="fade-section bg-cream py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-wood text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-12">
-          Konforunuz İçin Her Şey Düşünüldü
+          {t('amenities.title')}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
