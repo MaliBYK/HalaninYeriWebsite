@@ -1,5 +1,9 @@
 import { useState } from 'react';
 
+// BotFather'dan alınan token ve getUpdates ile bulunan chat_id buraya girilir
+const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN';
+const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID';
+
 const initialFormData = {
   adSoyad: '',
   telefon: '',
@@ -57,6 +61,18 @@ function Reservation() {
     return newErrors;
   };
 
+  const sendToTelegram = async (mesaj) => {
+    try {
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: mesaj }),
+      });
+    } catch {
+      // Telegram bildirimi başarısız olsa da WhatsApp akışı devam eder
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -76,6 +92,8 @@ function Reservation() {
 👥 Kişi Sayısı: ${formData.kisiSayisi}
 ⛺ Çadır Sayısı: ${formData.cadirSayisi}
 📝 Notlar: ${formData.notlar || '-'}`;
+
+    sendToTelegram(mesaj);
 
     window.open(
       `https://wa.me/905078508806?text=${encodeURIComponent(mesaj)}`,
