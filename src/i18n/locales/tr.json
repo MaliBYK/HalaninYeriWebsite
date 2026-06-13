@@ -66,6 +66,16 @@
     "instagramCta": "📸 @halaninyericampingg",
     "close": "Kapat"
   },
+  "reviews": {
+    "title": "Misafirlerimiz Ne Diyor?",
+    "subtitle": "⭐ 4.4 · Google'da 232 değerlendirme",
+    "items": [
+      { "name": "Ahmet Y.", "rating": 5, "text": "Portakal ağaçlarının arasında muhteşem bir kamp deneyimi. Her şey çok temiz ve sahibi son derece ilgili." },
+      { "name": "Elif K.", "rating": 5, "text": "Olympos'a yürüme mesafesinde, doğayla iç içe huzurlu bir alan. Kesinlikle tekrar geleceğiz." },
+      { "name": "Mert D.", "rating": 4, "text": "Ateş alanı ve ortak mutfak çok keyifliydi. Sessiz ve sakin bir gece geçirdik." }
+    ],
+    "cta": "Google'da Tüm Yorumları Gör →"
+  },
   "reservation": {
     "title": "Yerinizi Ayırtın",
     "subtitle": "Formu doldurun, en kısa sürede sizinle iletişime geçelim",

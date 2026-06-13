@@ -53,11 +53,14 @@ function Hero() {
       </div>
 
       {/* Rating badge */}
-      <div className="absolute bottom-6 right-6 z-10 bg-cream/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg animate-fade-in">
+      <button
+        onClick={() => scrollToSection('reviews')}
+        className="absolute bottom-6 right-6 z-10 bg-cream/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg animate-fade-in cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105"
+      >
         <p className="font-body text-wood font-bold text-sm sm:text-base">
           {t('hero.rating')}
         </p>
-      </div>
+      </button>
     </section>
   );
 }

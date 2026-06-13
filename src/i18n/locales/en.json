@@ -66,6 +66,16 @@
     "instagramCta": "📸 @halaninyericampingg",
     "close": "Close"
   },
+  "reviews": {
+    "title": "What Our Guests Say",
+    "subtitle": "⭐ 4.4 · 232 reviews on Google",
+    "items": [
+      { "name": "Ahmet Y.", "rating": 5, "text": "An amazing camping experience among the orange trees. Everything is spotless and the owner is incredibly attentive." },
+      { "name": "Elif K.", "rating": 5, "text": "A peaceful spot surrounded by nature, just a short walk from Olympos. We'll definitely be back." },
+      { "name": "Mert D.", "rating": 4, "text": "The fire pit and shared kitchen were great. We had a quiet, relaxing night." }
+    ],
+    "cta": "See All Reviews on Google →"
+  },
   "reservation": {
     "title": "Reserve Your Spot",
     "subtitle": "Fill out the form and we'll get back to you as soon as possible",

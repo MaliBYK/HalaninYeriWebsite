@@ -5,6 +5,7 @@ import InfoBand from './components/InfoBand';
 import About from './components/About';
 import Amenities from './components/Amenities';
 import Gallery from './components/Gallery';
+import Reviews from './components/Reviews';
 import Reservation from './components/Reservation';
 import Location from './components/Location';
 import FAQ from './components/FAQ';
@@ -39,6 +40,7 @@ function App() {
       <About />
       <Amenities />
       <Gallery />
+      <Reviews />
       <Reservation />
       <Location />
       <FAQ />
