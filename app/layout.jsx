@@ -26,6 +26,13 @@ export const metadata = {
     locale: 'tr_TR',
     type: 'website',
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: 'cover',
+  },
 };
 
 export default function RootLayout({ children }) {

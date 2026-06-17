@@ -58,7 +58,7 @@ export default function Experience() {
       }}
       dpr={config.dpr}
       camera={{ position: [0, 2.5, 14], fov: 60, near: 0.1, far: 600 }}
-      shadows
+      shadows={tier !== 'low'}
       gl={{
         antialias: tier !== 'low',
         alpha: false,

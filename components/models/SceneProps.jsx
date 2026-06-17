@@ -46,9 +46,8 @@ const MODELS = [
   '/models/flower_yellowA.glb',
 ];
 
-// Counts per quality tier
 const COUNTS = {
-  low:  { palm: 3, palmB: 2, rsm: 8,  rlg: 3, bush: 5, bushL: 2, flower: 0 },
+  low:  { palm: 2, palmB: 1, rsm: 4,  rlg: 2, bush: 3, bushL: 1, flower: 0 },
   mid:  { palm: 5, palmB: 3, rsm: 14, rlg: 5, bush: 9, bushL: 4, flower: 7 },
   high: { palm: 7, palmB: 4, rsm: 18, rlg: 7, bush: 12,bushL: 6, flower: 12 },
 };

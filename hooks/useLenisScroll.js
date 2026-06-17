@@ -47,12 +47,32 @@ export function useLenisScroll() {
       goTo(idx + (e.deltaY > 0 ? 1 : -1));
     };
 
+    // If the swipe happened inside a scrollable container that still has
+    // room to scroll in that direction, let the container scroll instead.
+    const isInnerScrollable = (el, goingDown) => {
+      while (el && el !== document.documentElement) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if (oy === 'auto' || oy === 'scroll') {
+          if (goingDown && el.scrollTop < el.scrollHeight - el.clientHeight - 1) return true;
+          if (!goingDown && el.scrollTop > 1) return true;
+        }
+        el = el.parentElement;
+      }
+      return false;
+    };
+
     let touchY = 0;
-    const onTouchStart = (e) => { touchY = e.touches[0].clientY; };
-    const onTouchEnd   = (e) => {
+    let touchTarget = null;
+    const onTouchStart = (e) => {
+      touchY = e.touches[0].clientY;
+      touchTarget = e.touches[0].target;
+    };
+    const onTouchEnd = (e) => {
       const diff = touchY - e.changedTouches[0].clientY;
       if (Math.abs(diff) < 40) return;
-      goTo(idx + (diff > 0 ? 1 : -1));
+      const goingDown = diff > 0;
+      if (isInnerScrollable(touchTarget, goingDown)) return;
+      goTo(idx + (goingDown ? 1 : -1));
     };
 
     const onKey = (e) => {

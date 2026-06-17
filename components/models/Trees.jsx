@@ -3,8 +3,7 @@ import { useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
 import useStore from '../../store/useStore';
 
-// Reduced counts vs procedural — real mesh clones are heavier than InstancedMesh
-const TREE_COUNTS = { low: 18, mid: 35, high: 55 };
+const TREE_COUNTS = { low: 10, mid: 35, high: 55 };
 
 function genPositions(count) {
   const PHI = (1 + Math.sqrt(5)) / 2;
