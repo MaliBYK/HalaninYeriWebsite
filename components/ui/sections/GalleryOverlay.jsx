@@ -11,25 +11,6 @@ function Stars({ n }) {
   );
 }
 
-function ReviewCard({ r }) {
-  return (
-    <div className="glass rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-2.5">
-      <div className="flex items-center gap-2 sm:gap-3">
-        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#D4870A]/20 flex items-center justify-center text-[#D4870A] font-display text-sm font-bold flex-shrink-0">
-          {r.name[0]}
-        </div>
-        <div>
-          <p className="font-body text-cream text-sm font-semibold">{r.name}</p>
-          <Stars n={r.rating} />
-        </div>
-      </div>
-      <p className="font-body text-cream/65 text-xs leading-relaxed line-clamp-3 sm:line-clamp-4">
-        {r.text}
-      </p>
-    </div>
-  );
-}
-
 export default function GalleryOverlay() {
   const isActive = useStore((s) => s.activeSection === 'gallery');
 
@@ -42,10 +23,10 @@ export default function GalleryOverlay() {
         transition: 'opacity 0.5s ease, transform 0.5s ease',
       }}
     >
-      <div className="w-full max-w-5xl flex flex-col" style={{ maxHeight: '100dvh', padding: '1rem 0' }}>
+      <div className="w-full max-w-5xl">
 
         {/* Header */}
-        <div className="text-center mb-3 sm:mb-6 flex-shrink-0">
+        <div className="text-center mb-3 sm:mb-6">
           <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-1 sm:mb-2">
             Misafirlerimiz
           </p>
@@ -57,18 +38,41 @@ export default function GalleryOverlay() {
           </p>
         </div>
 
-        {/* Review cards — scrollable on mobile */}
-        <div
-          className="inner-scroll grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 pointer-events-auto overflow-y-auto overscroll-contain flex-1 min-h-0 pb-1"
-          style={{ WebkitOverflowScrolling: 'touch' }}
-        >
-          {REVIEWS.map((r) => (
-            <ReviewCard key={r.name} r={r} />
+        {/*
+          Review cards — responsive count:
+          mobile  (1 col): 3 cards shown (rows 0-2)
+          sm      (2 col): 4 cards shown (rows 0-3), 5th hidden
+          lg      (3 col): 6 cards shown (all)
+        */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 pointer-events-auto">
+          {REVIEWS.map((r, i) => (
+            <div
+              key={r.name}
+              className={[
+                'glass rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-2.5',
+                i === 3 ? 'hidden sm:flex sm:flex-col' : '',
+                i === 4 ? 'hidden sm:flex sm:flex-col' : '',
+                i === 5 ? 'hidden lg:flex lg:flex-col' : '',
+              ].join(' ')}
+            >
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#D4870A]/20 flex items-center justify-center text-[#D4870A] font-display text-sm font-bold flex-shrink-0">
+                  {r.name[0]}
+                </div>
+                <div>
+                  <p className="font-body text-cream text-sm font-semibold">{r.name}</p>
+                  <Stars n={r.rating} />
+                </div>
+              </div>
+              <p className="font-body text-cream/65 text-xs leading-relaxed line-clamp-3 sm:line-clamp-4">
+                {r.text}
+              </p>
+            </div>
           ))}
         </div>
 
         {/* Links row */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-5 flex-shrink-0">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-3 sm:mt-5">
           <a
             href={GOOGLE_REVIEWS_URL}
             target="_blank"
