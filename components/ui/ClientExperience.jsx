@@ -4,6 +4,7 @@ import OverlayUI from './OverlayUI';
 import Loader from './Loader';
 import GrainVignette from './GrainVignette';
 import WhatsAppFab from './WhatsAppFab';
+import InstagramFab from './InstagramFab';
 import { useQualityTier } from '../../hooks/useQualityTier';
 import { useLenisScroll } from '../../hooks/useLenisScroll';
 
@@ -18,6 +19,7 @@ export default function ClientExperience() {
       <GrainVignette />
       <OverlayUI />
       <WhatsAppFab />
+      <InstagramFab />
     </>
   );
 }
