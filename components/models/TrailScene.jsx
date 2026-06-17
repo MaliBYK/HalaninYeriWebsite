@@ -1,46 +1,27 @@
 'use client';
+import { useMemo } from 'react';
+import { useGLTF } from '@react-three/drei';
 
-// Wooden platforms with tents on top, kitchen table, and campfire sitters.
-// Camera path runs from z≈+14 down to z≈-4 (campfire at origin).
+const DECK_TOP = 0.45; // y of platform deck surface (center 0.38 + half 0.07)
 
+const LEG_OFFSETS = [[-0.95, -0.95], [-0.95, 0.95], [0.95, -0.95], [0.95, 0.95]];
+
+// Each platform: position, rotation, which tent scene to clone, stump nearby
 const PLATFORM_DEFS = [
-  { pos: [-4.5, 0, -5],  rot: 0.2,  tentColor: '#8B6914' },
-  { pos: [5.5,  0, -8],  rot: -0.15, tentColor: '#7A5A10' },
-  { pos: [-3.5, 0, -11], rot: 0.35, tentColor: '#6B4A18' },
+  { pos: [-4.5, 0, -5],  rot: 0.2,   tentKey: 'closed', stumpOff: [1.8, 0,  1.4] },
+  { pos: [5.5,  0, -8],  rot: -0.15, tentKey: 'open',   stumpOff: [-2.0, 0,  1.2] },
+  { pos: [-3.5, 0, -11], rot: 0.35,  tentKey: 'closed', stumpOff: [2.0, 0, -1.2] },
 ];
 
-const LEG_OFFSETS = [
-  [-0.95, -0.95], [-0.95, 0.95], [0.95, -0.95], [0.95, 0.95],
+// Fence posts along right side of camera path
+const FENCE_PLACEMENTS = [
+  { pos: [3.2, 0,  0.5], rotY: 0.1 },
+  { pos: [3.5, 0, -1.8], rotY: 0.05 },
+  { pos: [3.8, 0, -3.5], rotY: -0.1 },
+  { pos: [4.0, 0, -5.2], rotY: 0.08 },
 ];
 
-// Deck top is at y = 0.38 + 0.07 = 0.45 (center + half-height)
-const DECK_TOP = 0.45;
-
-function Tent({ color }) {
-  return (
-    <group position={[0, DECK_TOP, 0]}>
-      {/* Main cone body */}
-      <mesh position={[0, 0.9, 0]} castShadow>
-        <coneGeometry args={[1.0, 1.8, 6]} />
-        <meshLambertMaterial color={color} />
-      </mesh>
-      {/* Door flap */}
-      <mesh position={[0, 0.55, 0.88]}>
-        <coneGeometry args={[0.28, 0.6, 5]} />
-        <meshLambertMaterial color="#4A3208" />
-      </mesh>
-      {/* Guy-rope stakes */}
-      {[0.6, 1.8, 3.0, 4.2].map((a, i) => (
-        <mesh key={i} position={[Math.cos(a) * 1.55, -DECK_TOP + 0.12, Math.sin(a) * 1.55]} castShadow>
-          <cylinderGeometry args={[0.025, 0.025, 0.24, 4]} />
-          <meshLambertMaterial color="#8A7A50" />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function Platform({ pos, rot, tentColor }) {
+function Platform({ pos, rot, tentClone, stumpClone, stumpOff }) {
   return (
     <group position={pos} rotation={[0, rot, 0]}>
       {/* Deck */}
@@ -48,7 +29,7 @@ function Platform({ pos, rot, tentColor }) {
         <boxGeometry args={[2.6, 0.14, 2.6]} />
         <meshLambertMaterial color="#7A5228" />
       </mesh>
-      {/* Plank detail */}
+      {/* Plank details */}
       {[0, 0.35, 0.7, -0.35, -0.7].map((xo, k) => (
         <mesh key={k} position={[xo, 0.46, 0]}>
           <boxGeometry args={[0.12, 0.04, 2.55]} />
@@ -62,69 +43,92 @@ function Platform({ pos, rot, tentColor }) {
           <meshLambertMaterial color="#5A3218" />
         </mesh>
       ))}
-      {/* Tent sitting on top of the deck */}
-      <Tent color={tentColor} />
-    </group>
-  );
-}
-
-function KitchenArea() {
-  return (
-    <group position={[-2.5, 0, -7.5]}>
-      <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.8, 0.1, 0.85]} />
-        <meshLambertMaterial color="#7A5228" />
-      </mesh>
-      {[[-0.75, -0.35], [-0.75, 0.35], [0.75, -0.35], [0.75, 0.35]].map(([x, z], i) => (
-        <mesh key={i} position={[x, 0.35, z]} castShadow>
-          <cylinderGeometry args={[0.04, 0.04, 0.72, 4]} />
-          <meshLambertMaterial color="#5A3818" />
-        </mesh>
-      ))}
-      <mesh position={[0, 0.85, 0]}>
-        <cylinderGeometry args={[0.18, 0.15, 0.18, 8]} />
-        <meshLambertMaterial color="#2A2A2A" />
-      </mesh>
-    </group>
-  );
-}
-
-// Simple low-poly people seated around the campfire (campfire is at world origin)
-const SITTER_ANGLES = [0.5, 2.2, 3.9, 5.2];
-
-function CampSitter({ angle }) {
-  const radius = 1.55;
-  const x = Math.sin(angle) * radius;
-  const z = Math.cos(angle) * radius;
-  const rotY = Math.PI + angle; // face toward fire at origin
-
-  return (
-    <group position={[x, 0, z]} rotation={[0, rotY, 0]}>
-      {/* Torso */}
-      <mesh position={[0, 0.38, 0]} castShadow>
-        <boxGeometry args={[0.28, 0.44, 0.22]} />
-        <meshLambertMaterial color="#3C2814" />
-      </mesh>
-      {/* Head */}
-      <mesh position={[0, 0.72, 0]} castShadow>
-        <sphereGeometry args={[0.13, 6, 5]} />
-        <meshLambertMaterial color="#B87840" />
-      </mesh>
-      {/* Arms reaching toward fire (local -Z faces the fire) */}
-      <mesh position={[0, 0.40, -0.25]} rotation={[Math.PI / 6, 0, 0]}>
-        <boxGeometry args={[0.26, 0.09, 0.30]} />
-        <meshLambertMaterial color="#2E1E0E" />
-      </mesh>
+      {/* Real tent on deck */}
+      <primitive object={tentClone} position={[0, DECK_TOP, 0]} />
+      {/* Stump beside platform */}
+      <primitive object={stumpClone} position={stumpOff} />
     </group>
   );
 }
 
 export default function TrailScene() {
+  const { scene: tentClosedScene }    = useGLTF('/models/tent_detailedClosed.glb');
+  const { scene: tentOpenScene }      = useGLTF('/models/tent_detailedOpen.glb');
+  const { scene: logStackScene }      = useGLTF('/models/log_stack.glb');
+  const { scene: logStackLargeScene } = useGLTF('/models/log_stackLarge.glb');
+  const { scene: stumpDetScene }      = useGLTF('/models/stump_roundDetailed.glb');
+  const { scene: canoeScene }         = useGLTF('/models/canoe.glb');
+  const { scene: fenceScene }         = useGLTF('/models/fence_simple.glb');
+
+  // One clone per platform tent + stump
+  const tentClones = useMemo(() => PLATFORM_DEFS.map((p) =>
+    (p.tentKey === 'open' ? tentOpenScene : tentClosedScene).clone(true)
+  ), [tentClosedScene, tentOpenScene]);
+
+  const stumpDetClones = useMemo(() =>
+    PLATFORM_DEFS.map(() => stumpDetScene.clone(true)),
+    [stumpDetScene],
+  );
+
+  const logStackClone      = useMemo(() => logStackScene.clone(true),      [logStackScene]);
+  const logStackLargeClone = useMemo(() => logStackLargeScene.clone(true), [logStackLargeScene]);
+  const canoeClone         = useMemo(() => canoeScene.clone(true),         [canoeScene]);
+  const fenceClones        = useMemo(() =>
+    FENCE_PLACEMENTS.map(() => fenceScene.clone(true)),
+    [fenceScene],
+  );
+
   return (
     <group>
-      {PLATFORM_DEFS.map((p, i) => <Platform key={i} {...p} />)}
-      <KitchenArea />
-      {SITTER_ANGLES.map((a, i) => <CampSitter key={i} angle={a} />)}
+      {/* Platforms with real tents */}
+      {PLATFORM_DEFS.map((p, i) => (
+        <Platform
+          key={i}
+          pos={p.pos}
+          rot={p.rot}
+          tentClone={tentClones[i]}
+          stumpClone={stumpDetClones[i]}
+          stumpOff={p.stumpOff}
+        />
+      ))}
+
+      {/* Kitchen area */}
+      <group position={[-2.5, 0, -7.5]}>
+        <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
+          <boxGeometry args={[1.8, 0.1, 0.85]} />
+          <meshLambertMaterial color="#7A5228" />
+        </mesh>
+        {[[-0.75, -0.35], [-0.75, 0.35], [0.75, -0.35], [0.75, 0.35]].map(([x, z], i) => (
+          <mesh key={i} position={[x, 0.35, z]} castShadow>
+            <cylinderGeometry args={[0.04, 0.04, 0.72, 4]} />
+            <meshLambertMaterial color="#5A3818" />
+          </mesh>
+        ))}
+        <mesh position={[0, 0.85, 0]}>
+          <cylinderGeometry args={[0.18, 0.15, 0.18, 8]} />
+          <meshLambertMaterial color="#2A2A2A" />
+        </mesh>
+      </group>
+
+      {/* Firewood piles */}
+      <primitive object={logStackClone}      position={[-3.2, 0,  0.6]} rotation-y={0.4} />
+      <primitive object={logStackLargeClone} position={[2.6,  0,  1.5]} rotation-y={-0.3} />
+
+      {/* Canoe resting on the ground to the right */}
+      <primitive object={canoeClone} position={[8.5, 0, -4.2]} rotation-y={1.1} scale={1.2} />
+
+      {/* Simple fence along right side of path */}
+      {FENCE_PLACEMENTS.map((f, i) => (
+        <primitive key={i} object={fenceClones[i]} position={f.pos} rotation-y={f.rotY} />
+      ))}
     </group>
   );
 }
+
+useGLTF.preload('/models/tent_detailedClosed.glb');
+useGLTF.preload('/models/tent_detailedOpen.glb');
+useGLTF.preload('/models/log_stack.glb');
+useGLTF.preload('/models/log_stackLarge.glb');
+useGLTF.preload('/models/stump_roundDetailed.glb');
+useGLTF.preload('/models/canoe.glb');
+useGLTF.preload('/models/fence_simple.glb');
