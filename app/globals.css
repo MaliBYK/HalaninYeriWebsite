@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Lenis smooth scroll ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ---- Base ---- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #050D04;
+  overflow-x: hidden;
+}
+
+/* ---- Glassmorphism utility ---- */
+.glass {
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  background: rgba(8, 4, 2, 0.58);
+  border: 1px solid rgba(212, 135, 10, 0.14);
+}
+
+/* ---- Scroll indicator pulse ---- */
+@keyframes scrollPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.scroll-pulse { animation: scrollPulse 2s ease-in-out infinite; }
+
+/* ---- Section fade-in on sticky reveal ---- */
+@keyframes sectionFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section-fade { animation: sectionFade 0.7s ease-out forwards; }
