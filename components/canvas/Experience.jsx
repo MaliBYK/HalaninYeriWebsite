@@ -16,6 +16,18 @@ import FencePerimeter from '../models/FencePerimeter';
 import useStore from '../../store/useStore';
 import { QUALITY_CONFIG } from '../../lib/config';
 
+// Module-level constants — stable references that never change.
+// If these were object literals inside the component, a new object would be
+// created on every render (tier change, section change, etc.) and R3F would
+// teardown + rebuild the WebGL context / shadow maps → black flash.
+const GL_CONFIG = {
+  antialias: false, // post-processing handles AA for mid/high via EffectComposer
+  alpha: false,
+  powerPreference: 'high-performance',
+  stencil: false,
+};
+const CAMERA = { position: [0, 2.5, 14], fov: 60, near: 0.1, far: 600 };
+
 function SceneContent() {
   const progress = useStore((s) => s.scrollProgress);
 
@@ -29,7 +41,6 @@ function SceneContent() {
       <TrailScene />
       <SceneProps />
       <FencePerimeter />
-      {/* Reveal gallery and booking scenes progressively */}
       <group visible={progress >= 0.40}>
         <GalleryScene />
       </group>
@@ -42,31 +53,20 @@ function SceneContent() {
 }
 
 export default function Experience() {
-  const tier = useStore((s) => s.qualityTier);
+  const tier         = useStore((s) => s.qualityTier);
   const setQualityTier = useStore((s) => s.setQualityTier);
-  const activeSection = useStore((s) => s.activeSection);
+  const activeSection  = useStore((s) => s.activeSection);
   const config = QUALITY_CONFIG[tier] ?? QUALITY_CONFIG.mid;
 
-  // Only allow canvas pointer events in booking section for 3D platform selection
   const canvasPointerEvents = activeSection === 'booking' ? 'auto' : 'none';
 
   return (
     <Canvas
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: canvasPointerEvents,
-      }}
+      style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: canvasPointerEvents }}
       dpr={config.dpr}
-      camera={{ position: [0, 2.5, 14], fov: 60, near: 0.1, far: 600 }}
-      shadows={tier !== 'low'}
-      gl={{
-        antialias: tier !== 'low',
-        alpha: false,
-        powerPreference: 'high-performance',
-        stencil: false,
-      }}
+      camera={CAMERA}
+      shadows
+      gl={GL_CONFIG}
     >
       <PerformanceMonitor
         onDecline={() => setQualityTier('low')}

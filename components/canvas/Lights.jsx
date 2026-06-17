@@ -1,6 +1,11 @@
 'use client';
+import useStore from '../../store/useStore';
+import { QUALITY_CONFIG } from '../../lib/config';
 
 export default function Lights() {
+  const tier = useStore((s) => s.qualityTier);
+  const shadowSize = QUALITY_CONFIG[tier]?.shadowMapSize ?? 1024;
+
   return (
     <>
       {/* Bright midday ambient — fills shadows softly */}
@@ -12,7 +17,7 @@ export default function Lights() {
         intensity={2.8}
         color="#FFF8D0"
         castShadow
-        shadow-mapSize={[1024, 1024]}
+        shadow-mapSize={[shadowSize, shadowSize]}
         shadow-camera-near={0.5}
         shadow-camera-far={140}
         shadow-camera-left={-55}
