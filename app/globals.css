@@ -2,26 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---- Lenis smooth scroll ---- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
+/* ---- Scroll jacking: one wheel tick = one section, no native scroll ---- */
+html, body {
   overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
+  height: 100%;
 }
 
 /* ---- Base ---- */
@@ -31,7 +15,6 @@ html.lenis body {
 
 body {
   background: #050D04;
-  overflow-x: hidden;
 }
 
 /* ---- Glassmorphism utility ---- */
