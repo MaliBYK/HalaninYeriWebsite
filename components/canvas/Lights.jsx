@@ -3,33 +3,33 @@
 export default function Lights() {
   return (
     <>
-      {/* Cool sky-bounce ambient */}
-      <ambientLight intensity={0.10} color="#C0CCE8" />
+      {/* Bright midday ambient — fills shadows softly */}
+      <ambientLight intensity={0.55} color="#FFF8E8" />
 
-      {/* Golden-hour key — low south-west angle */}
+      {/* Main sun — high in the sky, warm white */}
       <directionalLight
-        position={[18, 11, 10]}
-        intensity={1.9}
-        color="#FF9830"
+        position={[25, 38, 20]}
+        intensity={2.8}
+        color="#FFF8D0"
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-near={0.5}
-        shadow-camera-far={120}
-        shadow-camera-left={-45}
-        shadow-camera-right={45}
-        shadow-camera-top={45}
-        shadow-camera-bottom={-45}
+        shadow-camera-far={140}
+        shadow-camera-left={-55}
+        shadow-camera-right={55}
+        shadow-camera-top={55}
+        shadow-camera-bottom={-55}
       />
 
-      {/* Cool blue fill (sky opposite) */}
+      {/* Soft sky fill from opposite side */}
       <directionalLight
-        position={[-14, 9, -20]}
-        intensity={0.25}
-        color="#4060A8"
+        position={[-18, 12, -15]}
+        intensity={0.45}
+        color="#C8DFF5"
       />
 
-      {/* Hemisphere — warm ground / cool sky */}
-      <hemisphereLight args={['#FF7820', '#162010', 0.22]} />
+      {/* Hemisphere — sky blue above, warm earth below */}
+      <hemisphereLight args={['#87CEEB', '#6A8A30', 0.50]} />
     </>
   );
 }
