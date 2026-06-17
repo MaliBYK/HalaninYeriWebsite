@@ -45,14 +45,11 @@ export default function CameraRig() {
       fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
 
     } else if (progress < BOOKING_START) {
-      // ── Gallery orbit: camera circles scene centre ──
-      const orbitP = MathUtils.mapLinear(progress, GALLERY_START, BOOKING_START, 0, 1);
-      const angle = orbitP * Math.PI * 0.4; // 72° arc
-
+      // ── Gallery: camera rests at curve end, looks at camp centre ──
       _camTarget.set(
-        GC.x + Math.sin(angle) * ORBIT_RADIUS,
+        GC.x,
         GC.y,
-        GC.z - Math.cos(angle) * ORBIT_RADIUS,
+        GC.z - ORBIT_RADIUS,
       );
       _lookTarget.copy(GC);
 
