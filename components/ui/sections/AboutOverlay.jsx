@@ -1,31 +1,40 @@
 'use client';
 import { ABOUT, AMENITIES } from '../../../lib/content';
 import { WHATSAPP_NUMBER } from '../../../lib/config';
+import useStore from '../../../store/useStore';
 
 function getWhatsAppUrl(msg) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
 export default function AboutOverlay() {
+  const activeSection = useStore((s) => s.activeSection);
+  const isActive = activeSection === 'about';
+
   return (
     <section id="about-section" className="relative h-[400vh]">
-      <div className="sticky top-0 h-screen flex items-center justify-center px-6">
-        <div className="w-full max-w-4xl">
-          {/* Two-column layout: About + Amenities */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="sticky top-0 h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden">
+        <div
+          className="w-full max-w-4xl transition-all duration-700"
+          style={{
+            opacity: isActive ? 1 : 0.5,
+            transform: isActive ? 'translateY(0)' : 'translateY(20px)',
+          }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {/* About card */}
-            <div className="glass rounded-2xl p-8">
+            <div className="glass rounded-2xl p-6 sm:p-8">
               <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
                 {ABOUT.label}
               </p>
-              <h2 className="font-display text-cream text-3xl leading-snug mb-5">
+              <h2 className="font-display text-cream text-2xl sm:text-3xl leading-snug mb-5">
                 {ABOUT.title}
               </h2>
-              <p className="font-body text-cream/65 text-sm leading-relaxed mb-7">
+              <p className="font-body text-cream/65 text-sm leading-relaxed mb-6">
                 {ABOUT.text}
               </p>
-              <div className="grid grid-cols-2 gap-3 mb-7">
+              <div className="grid grid-cols-2 gap-3 mb-6">
                 {ABOUT.features.map((f) => (
                   <div key={f.title} className="flex items-start gap-2">
                     <span className="text-lg mt-0.5">{f.icon}</span>
@@ -47,11 +56,11 @@ export default function AboutOverlay() {
             </div>
 
             {/* Amenities card */}
-            <div className="glass rounded-2xl p-8">
-              <h2 className="font-display text-cream text-2xl mb-6">
+            <div className="glass rounded-2xl p-6 sm:p-8">
+              <h2 className="font-display text-cream text-2xl mb-5">
                 Konforunuz İçin Her Şey
               </h2>
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-2.5">
                 {AMENITIES.map((a) => (
                   <div key={a.title} className="flex items-center gap-3">
                     <span className="text-xl w-8 text-center">{a.icon}</span>

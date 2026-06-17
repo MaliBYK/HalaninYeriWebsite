@@ -3,44 +3,33 @@
 export default function Lights() {
   return (
     <>
-      {/* Soft ambient — night-side fill */}
-      <ambientLight intensity={0.12} color="#C8D8FF" />
+      {/* Cool sky-bounce ambient */}
+      <ambientLight intensity={0.10} color="#C0CCE8" />
 
-      {/* Golden-hour key light from low south-west angle */}
+      {/* Golden-hour key — low south-west angle */}
       <directionalLight
-        position={[18, 12, 10]}
-        intensity={2.0}
+        position={[18, 11, 10]}
+        intensity={1.9}
         color="#FF9830"
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-near={0.5}
         shadow-camera-far={120}
-        shadow-camera-left={-40}
-        shadow-camera-right={40}
-        shadow-camera-top={40}
-        shadow-camera-bottom={-40}
+        shadow-camera-left={-45}
+        shadow-camera-right={45}
+        shadow-camera-top={45}
+        shadow-camera-bottom={-45}
       />
 
-      {/* Cool blue-purple fill from opposite side (sky bounce) */}
+      {/* Cool blue fill (sky opposite) */}
       <directionalLight
-        position={[-14, 10, -20]}
-        intensity={0.28}
-        color="#4560A8"
+        position={[-14, 9, -20]}
+        intensity={0.25}
+        color="#4060A8"
       />
 
-      {/* Campfire point light — warm orange glow at scene origin */}
-      <pointLight
-        position={[0, 1.1, 0]}
-        intensity={4}
-        color="#FF6418"
-        distance={18}
-        decay={2}
-      />
-
-      {/* Ground bounce — very subtle warm reflection */}
-      <hemisphereLight
-        args={['#FF8020', '#1A3010', 0.25]}
-      />
+      {/* Hemisphere — warm ground / cool sky */}
+      <hemisphereLight args={['#FF7820', '#162010', 0.22]} />
     </>
   );
 }
