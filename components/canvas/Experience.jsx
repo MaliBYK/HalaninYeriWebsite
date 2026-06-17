@@ -12,6 +12,7 @@ import TrailScene from '../models/TrailScene';
 import GalleryScene from '../models/GalleryScene';
 import BookingScene from '../models/BookingScene';
 import SceneProps from '../models/SceneProps';
+import FencePerimeter from '../models/FencePerimeter';
 import useStore from '../../store/useStore';
 import { QUALITY_CONFIG } from '../../lib/config';
 
@@ -27,6 +28,7 @@ function SceneContent() {
       <Campfire />
       <TrailScene />
       <SceneProps />
+      <FencePerimeter />
       {/* Reveal gallery and booking scenes progressively */}
       <group visible={progress >= 0.40}>
         <GalleryScene />

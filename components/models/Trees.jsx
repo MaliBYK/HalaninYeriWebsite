@@ -5,16 +5,19 @@ import useStore from '../../store/useStore';
 
 const TREE_COUNTS = { low: 10, mid: 35, high: 55 };
 
+// Fence perimeter bounds (must match FencePerimeter.jsx)
+const FENCE_X1 = -8, FENCE_X2 = 8, FENCE_Z_NEAR = 4, FENCE_Z_FAR = -13;
+
 function genPositions(count) {
   const PHI = (1 + Math.sqrt(5)) / 2;
   const spots = [];
-  for (let i = 0; i < count * 4 && spots.length < count; i++) {
-    const r = Math.sqrt(i / (count * 4)) * 30 + 4;
+  for (let i = 0; i < count * 6 && spots.length < count; i++) {
+    const r = Math.sqrt(i / (count * 6)) * 28 + 5;
     const theta = i * ((2 * Math.PI) / (PHI * PHI));
     const x = Math.cos(theta) * r;
     const z = Math.sin(theta) * r - 7;
-    // Keep the path clear
-    if (Math.abs(x) < 2.5 && z > -5 && z < 3) continue;
+    // Skip anything inside the fence — trees belong in the surrounding forest
+    if (x > FENCE_X1 && x < FENCE_X2 && z > FENCE_Z_FAR && z < FENCE_Z_NEAR) continue;
     spots.push({
       x,
       z,

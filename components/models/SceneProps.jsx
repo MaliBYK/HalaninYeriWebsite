@@ -12,19 +12,20 @@ function rng(seed) {
   };
 }
 
-function scatter(count, seedBase, rMin, rMax, zCenter = -6, clearPath = true) {
+// outsideOnly: restrict placement to outside the fence perimeter
+function scatter(count, seedBase, rMin, rMax, zCenter = -6, outsideOnly = false) {
   const rand = rng(seedBase);
   const PHI  = (1 + Math.sqrt(5)) / 2;
   const out  = [];
   let   attempt = 0;
-  while (out.length < count && attempt < count * 10) {
+  while (out.length < count && attempt < count * 14) {
     attempt++;
     const r     = rMin + rand() * (rMax - rMin);
     const theta = attempt * (Math.PI * 2 / (PHI * PHI));
     const x     = Math.cos(theta) * r + (rand() - 0.5) * 4;
     const z     = Math.sin(theta) * r + zCenter + (rand() - 0.5) * 4;
-    if (clearPath && Math.abs(x) < 2.8 && z > -7 && z < 2) continue; // keep camera path clear
     if (x * x + (z * z) < 6.25) continue;                             // keep campfire area clear
+    if (outsideOnly && x > -8 && x < 8 && z > -13 && z < 4) continue; // outside fence only
     out.push({ x, z, scale: 0.7 + rand() * 0.6, rotY: rand() * Math.PI * 2 });
   }
   return out;
@@ -70,14 +71,14 @@ export default function SceneProps() {
   const { scene: flRedS }   = useGLTF('/models/flower_redA.glb');
   const { scene: flYelS }   = useGLTF('/models/flower_yellowA.glb');
 
-  // Scatter positions (stable — seeds are constants)
-  const palmPos   = useMemo(() => scatter(C.palm,   11, 7,  22), [C.palm]);
-  const palmBPos  = useMemo(() => scatter(C.palmB,  22, 9,  25), [C.palmB]);
-  const rSmPos    = useMemo(() => scatter(C.rsm,    33, 2,  26), [C.rsm]);
-  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 12, 28), [C.rlg]);
-  const bushPos   = useMemo(() => scatter(C.bush,   55, 3,  20), [C.bush]);
-  const bushLPos  = useMemo(() => scatter(C.bushL,  66, 7,  24), [C.bushL]);
-  const flowerPos = useMemo(() => scatter(C.flower, 77, 2,  14), [C.flower]);
+  // Palms + large rocks → fence exterior only; bushes/flowers can be anywhere
+  const palmPos   = useMemo(() => scatter(C.palm,   11, 7,  22, -6, true),  [C.palm]);
+  const palmBPos  = useMemo(() => scatter(C.palmB,  22, 9,  25, -6, true),  [C.palmB]);
+  const rSmPos    = useMemo(() => scatter(C.rsm,    33, 2,  20, -6, false), [C.rsm]);
+  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 9,  24, -6, true),  [C.rlg]);
+  const bushPos   = useMemo(() => scatter(C.bush,   55, 3,  18, -6, false), [C.bush]);
+  const bushLPos  = useMemo(() => scatter(C.bushL,  66, 5,  18, -6, false), [C.bushL]);
+  const flowerPos = useMemo(() => scatter(C.flower, 77, 2,  12, -6, false), [C.flower]);
 
   const rSmSrc    = [rSmAS, rSmBS, rSmCS];
   const rLgSrc    = [rLgAS, rLgBS, rLgCS];
