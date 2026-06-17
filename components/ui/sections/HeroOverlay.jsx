@@ -49,7 +49,7 @@ export default function HeroOverlay() {
       </p>
 
       {/* CTAs */}
-      <div className="relative flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade w-full max-w-xs sm:max-w-none px-6 sm:px-0">
+      <div className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade">
         <a
           href={getWhatsAppUrl('🏕️ Merhaba, rezervasyon yapmak istiyorum')}
           target="_blank"
