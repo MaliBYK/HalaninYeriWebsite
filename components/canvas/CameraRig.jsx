@@ -45,16 +45,11 @@ export default function CameraRig() {
       fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
 
     } else if (progress < BOOKING_START) {
-      // ── Gallery orbit: camera circles scene centre ──
-      const orbitP = MathUtils.mapLinear(progress, GALLERY_START, BOOKING_START, 0, 1);
-      const angle = orbitP * Math.PI * 0.4; // 72° arc
+      // ── Gallery: gentle forward drift along z, no lateral swing ──
+      const p = MathUtils.mapLinear(progress, GALLERY_START, BOOKING_START, 0, 1);
 
-      _camTarget.set(
-        GC.x + Math.sin(angle) * ORBIT_RADIUS,
-        GC.y,
-        GC.z - Math.cos(angle) * ORBIT_RADIUS,
-      );
-      _lookTarget.copy(GC);
+      _camTarget.set(0, 2.1, MathUtils.lerp(-4, -6.5, p));
+      _lookTarget.set(0, 1.2, MathUtils.lerp(-1.5, -3.5, p));
 
       fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
 
