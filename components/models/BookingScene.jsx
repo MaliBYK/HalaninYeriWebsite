@@ -1,5 +1,4 @@
 'use client';
-import { Html } from '@react-three/drei';
 import useStore from '../../store/useStore';
 import { PLATFORM_SPOTS } from '../../lib/content';
 
@@ -35,67 +34,14 @@ function PlatformSpot({ spot }) {
         </mesh>
       ))}
 
-      {/* Selected halo ring */}
+      {/* Selected: glowing halo ring only — no HTML labels */}
       {isSelected && (
         <mesh position={[0, 0.09, 0]}>
           <ringGeometry args={[1.4, 1.65, 32]} />
-          <meshBasicMaterial color="#50CC30" transparent opacity={0.6} />
+          <meshBasicMaterial color="#50CC30" transparent opacity={0.65} />
         </mesh>
       )}
-
-      {/* HTML label (drei) */}
-      {isSelected && (
-        <Html
-          position={[0, 0.75, 0]}
-          center
-          style={{ pointerEvents: 'none' }}
-          distanceFactor={8}
-        >
-          <div
-            style={{
-              background: '#D4870A',
-              color: '#fff',
-              fontSize: '11px',
-              fontFamily: 'var(--font-body, sans-serif)',
-              padding: '4px 10px',
-              borderRadius: '99px',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {spot.label} ✓
-          </div>
-        </Html>
-      )}
     </group>
-  );
-}
-
-// Label dots for unselected platforms
-function DotLabel({ spot }) {
-  const selectedId = useStore((s) => s.selectedPlatformId);
-  if (selectedId === spot.id) return null;
-  return (
-    <Html
-      position={[spot.position[0], spot.position[1] + 0.6, spot.position[2]]}
-      center
-      style={{ pointerEvents: 'none' }}
-      distanceFactor={12}
-    >
-      <div
-        style={{
-          background: 'rgba(20,10,4,0.75)',
-          color: '#F5ECD7',
-          fontSize: '10px',
-          fontFamily: 'var(--font-body, sans-serif)',
-          padding: '3px 8px',
-          borderRadius: '99px',
-          border: '1px solid rgba(212,135,10,0.4)',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {spot.label}
-      </div>
-    </Html>
   );
 }
 
@@ -104,9 +50,6 @@ export default function BookingScene() {
     <group>
       {PLATFORM_SPOTS.map((spot) => (
         <PlatformSpot key={spot.id} spot={spot} />
-      ))}
-      {PLATFORM_SPOTS.map((spot) => (
-        <DotLabel key={spot.id + '-label'} spot={spot} />
       ))}
     </group>
   );

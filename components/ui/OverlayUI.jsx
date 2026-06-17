@@ -1,27 +1,59 @@
 'use client';
 import useStore from '../../store/useStore';
 import { nav } from '../../hooks/useLenisScroll';
+import { SECTIONS } from '../../lib/config';
 import HeroOverlay from './sections/HeroOverlay';
 import AboutOverlay from './sections/AboutOverlay';
 import GalleryOverlay from './sections/GalleryOverlay';
 import BookingOverlay from './sections/BookingOverlay';
 
-const SECTION_IDS = ['hero', 'about', 'gallery', 'booking'];
+// Cross-fade zone width around each section boundary
+const FADE = 0.04;
 
-// Wraps each section with fixed-position + fade/slide transition
-function SectionLayer({ sectionIdx, children }) {
-  const currentIdx = useStore((s) => s.sectionIndex);
-  const isActive   = sectionIdx === currentIdx;
-  const offset     = sectionIdx - currentIdx; // <0 = above (past), >0 = below (upcoming)
+function clamp01(x) { return Math.max(0, Math.min(1, x)); }
+
+// Compute opacity [0,1] driven by scrollProgress so both camera and text
+// transition simultaneously from the exact same value.
+function getSectionOpacity(sec, progress) {
+  const { start: S, end: E } = sec;
+
+  // Outside the section's fade window entirely
+  if (progress < S - FADE || progress >= E) return 0;
+
+  // Fading in (around section start) — skip for first section (S === 0)
+  if (S > 0 && progress < S) {
+    return clamp01((progress - (S - FADE)) / FADE);
+  }
+
+  // Fading out (around section end) — skip for last section (E === 1)
+  if (E < 1.0 && progress >= E - FADE) {
+    return clamp01((E - progress) / FADE);
+  }
+
+  return 1;
+}
+
+// Fixed-position layer for each section, visibility driven by scrollProgress
+function SectionLayer({ sectionId, children }) {
+  const progress = useStore((s) => s.scrollProgress);
+  const sec = SECTIONS.find((s) => s.id === sectionId);
+  const opacity = getSectionOpacity(sec, progress);
+
+  // Slide in from below when entering, slide up when leaving
+  let ty = 0;
+  if (sec.start > 0 && progress < sec.start) {
+    ty = 28 * (1 - opacity); // coming from below
+  } else if (sec.end < 1.0 && progress >= sec.end - FADE && progress < sec.end) {
+    ty = -28 * (1 - opacity); // going up
+  }
 
   return (
     <div
       className="fixed inset-0 z-10"
       style={{
-        opacity:   isActive ? 1 : 0,
-        transform: isActive ? 'translateY(0)' : `translateY(${offset > 0 ? 52 : -52}px)`,
-        transition: 'opacity 0.65s ease, transform 0.65s ease',
-        pointerEvents: isActive ? 'auto' : 'none',
+        opacity,
+        transform: `translateY(${ty}px)`,
+        pointerEvents: opacity > 0.5 ? 'auto' : 'none',
         willChange: 'opacity, transform',
       }}
     >
@@ -30,19 +62,21 @@ function SectionLayer({ sectionIdx, children }) {
   );
 }
 
-// Section dot navigation on the right edge
+// Right-edge dot navigation
 function NavDots() {
-  const currentIdx = useStore((s) => s.sectionIndex);
+  const progress = useStore((s) => s.scrollProgress);
+  // Active dot = last section whose start has been reached
+  const currentIdx = SECTIONS.reduce((acc, s, i) => (progress >= s.start ? i : acc), 0);
 
   return (
     <nav
       aria-label="Section navigation"
       className="fixed right-5 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 pointer-events-auto"
     >
-      {SECTION_IDS.map((id, i) => (
+      {SECTIONS.map((s, i) => (
         <button
-          key={id}
-          aria-label={`Go to ${id} section`}
+          key={s.id}
+          aria-label={`Go to ${s.id} section`}
           onClick={() => nav.goTo?.(i)}
           className="rounded-full transition-all duration-300 focus:outline-none"
           style={{
@@ -60,10 +94,10 @@ function NavDots() {
 export default function OverlayUI() {
   return (
     <>
-      <SectionLayer sectionIdx={0}><HeroOverlay /></SectionLayer>
-      <SectionLayer sectionIdx={1}><AboutOverlay /></SectionLayer>
-      <SectionLayer sectionIdx={2}><GalleryOverlay /></SectionLayer>
-      <SectionLayer sectionIdx={3}><BookingOverlay /></SectionLayer>
+      <SectionLayer sectionId="hero"><HeroOverlay /></SectionLayer>
+      <SectionLayer sectionId="about"><AboutOverlay /></SectionLayer>
+      <SectionLayer sectionId="gallery"><GalleryOverlay /></SectionLayer>
+      <SectionLayer sectionId="booking"><BookingOverlay /></SectionLayer>
       <NavDots />
     </>
   );
