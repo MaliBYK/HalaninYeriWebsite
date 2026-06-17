@@ -59,16 +59,16 @@ export default function CameraRig() {
       fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
 
     } else {
-      // ── Booking rise: camera lifts for bird's-eye ──
+      // ── Booking rise: camera lifts from campfire area for bird's-eye ──
       const riseP = MathUtils.mapLinear(progress, BOOKING_START, 1.0, 0, 1);
       const ease = 1 - Math.pow(1 - riseP, 3); // cubic ease-out
 
       _camTarget.set(
         MathUtils.lerp(2, 0, ease),
         MathUtils.lerp(3.5, 22, ease),
-        MathUtils.lerp(-10, -7, ease),
+        MathUtils.lerp(-2, -7, ease),  // starts near campfire, rises back
       );
-      _lookTarget.set(0, 0, -12);
+      _lookTarget.set(0, 0, -5);  // always look at camp centre
 
       const targetFov = MathUtils.lerp(60, 38, ease);
       fovRef.current = MathUtils.lerp(fovRef.current, targetFov, delta * 2.5);
