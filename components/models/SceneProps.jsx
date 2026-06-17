@@ -71,11 +71,13 @@ export default function SceneProps() {
   const { scene: flRedS }   = useGLTF('/models/flower_redA.glb');
   const { scene: flYelS }   = useGLTF('/models/flower_yellowA.glb');
 
-  // Palms + large rocks → fence exterior only; bushes/flowers can be anywhere
+  // Palms → fence exterior (tall trees outside the camp)
+  // Rocks → anywhere (natural scatter inside + outside)
+  // Bushes/flowers → anywhere
   const palmPos   = useMemo(() => scatter(C.palm,   11, 7,  22, -6, true),  [C.palm]);
   const palmBPos  = useMemo(() => scatter(C.palmB,  22, 9,  25, -6, true),  [C.palmB]);
   const rSmPos    = useMemo(() => scatter(C.rsm,    33, 2,  20, -6, false), [C.rsm]);
-  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 9,  24, -6, true),  [C.rlg]);
+  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 9,  24, -6, false), [C.rlg]);
   const bushPos   = useMemo(() => scatter(C.bush,   55, 3,  18, -6, false), [C.bush]);
   const bushLPos  = useMemo(() => scatter(C.bushL,  66, 5,  18, -6, false), [C.bushL]);
   const flowerPos = useMemo(() => scatter(C.flower, 77, 2,  12, -6, false), [C.flower]);
