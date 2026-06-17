@@ -13,7 +13,8 @@ function rng(seed) {
 }
 
 // outsideOnly: restrict placement to outside the fence perimeter
-function scatter(count, seedBase, rMin, rMax, zCenter = -6, outsideOnly = false) {
+// heroZoneClear: prevent placement at z > 0 (visible in hero camera approach)
+function scatter(count, seedBase, rMin, rMax, zCenter = -6, outsideOnly = false, heroZoneClear = false) {
   const rand = rng(seedBase);
   const PHI  = (1 + Math.sqrt(5)) / 2;
   const out  = [];
@@ -26,6 +27,7 @@ function scatter(count, seedBase, rMin, rMax, zCenter = -6, outsideOnly = false)
     const z     = Math.sin(theta) * r + zCenter + (rand() - 0.5) * 4;
     if (x * x + (z * z) < 6.25) continue;
     if (outsideOnly && x > -8 && x < 8 && z > -13 && z < 4) continue;
+    if (heroZoneClear && z > 0) continue;
     out.push({ x, z, scale: 0.7 + rand() * 0.6, rotY: rand() * Math.PI * 2 });
   }
   return out;
@@ -68,7 +70,7 @@ export default function SceneProps() {
   const { scene: flYelS } = useGLTF('/models/flower_yellowA.glb');
 
   const rSmPos    = useMemo(() => scatter(C.rsm,    33, 2,  20, -6, false), [C.rsm]);
-  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 9,  24, -6, false), [C.rlg]);
+  const rLgPos    = useMemo(() => scatter(C.rlg,    44, 9,  24, -6, false, true), [C.rlg]);
   const bushPos   = useMemo(() => scatter(C.bush,   55, 3,  18, -6, false), [C.bush]);
   const bushLPos  = useMemo(() => scatter(C.bushL,  66, 5,  18, -6, false), [C.bushL]);
   const flowerPos = useMemo(() => scatter(C.flower, 77, 2,  12, -6, false), [C.flower]);

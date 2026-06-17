@@ -70,8 +70,8 @@ export default function Experience() {
     >
       <PerformanceMonitor
         onDecline={() => setQualityTier('low')}
-        onIncline={() => tier === 'low' && setQualityTier('mid')}
-        flipflops={3}
+        onIncline={() => {}}
+        flipflops={5}
         threshold={0.75}
       >
         <AdaptiveDpr pixelated />
