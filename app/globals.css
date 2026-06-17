@@ -2,10 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---- Scroll jacking: disable native scroll ---- */
-html, body {
+/* ---- Lenis smooth scroll ---- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
   overflow: hidden;
-  height: 100%;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 /* ---- Base ---- */
@@ -15,6 +31,7 @@ html, body {
 
 body {
   background: #050D04;
+  overflow-x: hidden;
 }
 
 /* ---- Glassmorphism utility ---- */

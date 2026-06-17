@@ -13,6 +13,8 @@ export default function ClientExperience() {
 
   return (
     <>
+      {/* Scroll track: gives Lenis a scrollable range so progress maps 0→1 */}
+      <div aria-hidden="true" style={{ height: '400vh' }} />
       <Loader />
       <Experience />
       <GrainVignette />
