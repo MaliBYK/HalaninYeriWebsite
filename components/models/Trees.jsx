@@ -12,12 +12,14 @@ function genPositions(count) {
   const PHI = (1 + Math.sqrt(5)) / 2;
   const spots = [];
   for (let i = 0; i < count * 6 && spots.length < count; i++) {
-    const r = Math.sqrt(i / (count * 6)) * 28 + 5;
+    const r = Math.sqrt(i / (count * 6)) * 20 + 3;
     const theta = i * ((2 * Math.PI) / (PHI * PHI));
     const x = Math.cos(theta) * r;
     const z = Math.sin(theta) * r - 7;
-    // Skip anything inside the fence — trees belong in the surrounding forest
-    if (x > FENCE_X1 && x < FENCE_X2 && z > FENCE_Z_FAR && z < FENCE_Z_NEAR) continue;
+    // Must be inside the fence (it's an orange grove)
+    if (x < FENCE_X1 || x > FENCE_X2 || z < FENCE_Z_FAR || z > FENCE_Z_NEAR) continue;
+    // Keep immediate campfire area clear
+    if (x * x + z * z < 8) continue;
     spots.push({
       x,
       z,
