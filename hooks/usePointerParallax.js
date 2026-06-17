@@ -5,6 +5,8 @@ export function usePointerParallax() {
   const pointerRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouch) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const onMove = (e) => {

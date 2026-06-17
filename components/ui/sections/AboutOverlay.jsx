@@ -19,42 +19,52 @@ export default function AboutOverlay() {
         transition: 'opacity 0.5s ease, transform 0.5s ease',
       }}
     >
-      <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
         {/* About card */}
-        <div className="glass rounded-2xl p-6 sm:p-8">
-          <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
+        <div className="glass rounded-2xl p-5 sm:p-8">
+          <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-2 sm:mb-3">
             {ABOUT.label}
           </p>
-          <h2 className="font-display text-cream text-2xl sm:text-3xl leading-snug mb-5">
+          <h2 className="font-display text-cream text-2xl sm:text-3xl leading-snug mb-3 sm:mb-5">
             {ABOUT.title}
           </h2>
-          <p className="font-body text-cream/65 text-sm leading-relaxed mb-6">
+          <p className="font-body text-cream/65 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none">
             {ABOUT.text}
           </p>
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
             {ABOUT.features.map((f) => (
               <div key={f.title} className="flex items-start gap-2">
-                <span className="text-lg mt-0.5">{f.icon}</span>
+                <span className="text-base sm:text-lg mt-0.5">{f.icon}</span>
                 <div>
-                  <p className="font-body text-cream text-sm font-semibold">{f.title}</p>
-                  <p className="font-body text-cream/50 text-xs">{f.desc}</p>
+                  <p className="font-body text-cream text-xs sm:text-sm font-semibold">{f.title}</p>
+                  <p className="font-body text-cream/50 text-xs hidden sm:block">{f.desc}</p>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Quick amenity chips — mobile only */}
+          <div className="flex flex-wrap gap-1.5 mb-4 lg:hidden">
+            {AMENITIES.slice(0, 6).map((a) => (
+              <span key={a.title} className="glass text-cream/70 text-xs px-2.5 py-1 rounded-full">
+                {a.icon} {a.title}
+              </span>
+            ))}
+          </div>
+
           <a
             href={getWhatsAppUrl('🏕️ Merhaba, rezervasyon yapmak istiyorum')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body text-sm rounded-full transition-colors duration-200 pointer-events-auto"
+            className="inline-block px-6 py-2.5 sm:py-3 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body text-sm rounded-full transition-colors duration-200 pointer-events-auto"
           >
             {ABOUT.cta}
           </a>
         </div>
 
-        {/* Amenities card */}
-        <div className="glass rounded-2xl p-6 sm:p-8">
+        {/* Full amenities card — desktop only */}
+        <div className="glass rounded-2xl p-5 sm:p-8 hidden lg:block">
           <h2 className="font-display text-cream text-2xl mb-5">
             Konforunuz İçin Her Şey
           </h2>

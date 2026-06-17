@@ -38,3 +38,15 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 .section-fade { animation: sectionFade 0.7s ease-out forwards; }
+
+/* ---- Mobile: safe area insets for notch/home-bar devices ---- */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-pb { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* ---- Scrollable inner containers: hide scrollbar visually ---- */
+.inner-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.inner-scroll::-webkit-scrollbar { display: none; }
