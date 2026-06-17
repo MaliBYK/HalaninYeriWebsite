@@ -13,13 +13,6 @@ const PLATFORM_DEFS = [
   { pos: [-3.5, 0, -11], rot: 0.35,  tentKey: 'closed', stumpOff: [2.0, 0, -1.2] },
 ];
 
-// Fence posts along right side of camera path
-const FENCE_PLACEMENTS = [
-  { pos: [3.2, 0,  0.5], rotY: 0.1 },
-  { pos: [3.5, 0, -1.8], rotY: 0.05 },
-  { pos: [3.8, 0, -3.5], rotY: -0.1 },
-  { pos: [4.0, 0, -5.2], rotY: 0.08 },
-];
 
 function Platform({ pos, rot, tentClone, stumpClone, stumpOff }) {
   return (
@@ -44,7 +37,7 @@ function Platform({ pos, rot, tentClone, stumpClone, stumpOff }) {
         </mesh>
       ))}
       {/* Real tent on deck */}
-      <primitive object={tentClone} position={[0, DECK_TOP, 0]} />
+      <primitive object={tentClone} position={[0, DECK_TOP, 0]} scale={2.2} />
       {/* Stump beside platform */}
       <primitive object={stumpClone} position={stumpOff} />
     </group>
@@ -58,7 +51,6 @@ export default function TrailScene() {
   const { scene: logStackLargeScene } = useGLTF('/models/log_stackLarge.glb');
   const { scene: stumpDetScene }      = useGLTF('/models/stump_roundDetailed.glb');
   const { scene: canoeScene }         = useGLTF('/models/canoe.glb');
-  const { scene: fenceScene }         = useGLTF('/models/fence_simple.glb');
 
   // One clone per platform tent + stump
   const tentClones = useMemo(() => PLATFORM_DEFS.map((p) =>
@@ -73,10 +65,6 @@ export default function TrailScene() {
   const logStackClone      = useMemo(() => logStackScene.clone(true),      [logStackScene]);
   const logStackLargeClone = useMemo(() => logStackLargeScene.clone(true), [logStackLargeScene]);
   const canoeClone         = useMemo(() => canoeScene.clone(true),         [canoeScene]);
-  const fenceClones        = useMemo(() =>
-    FENCE_PLACEMENTS.map(() => fenceScene.clone(true)),
-    [fenceScene],
-  );
 
   return (
     <group>
@@ -117,10 +105,6 @@ export default function TrailScene() {
       {/* Canoe resting on the ground to the right */}
       <primitive object={canoeClone} position={[8.5, 0, -4.2]} rotation-y={1.1} scale={1.2} />
 
-      {/* Simple fence along right side of path */}
-      {FENCE_PLACEMENTS.map((f, i) => (
-        <primitive key={i} object={fenceClones[i]} position={f.pos} rotation-y={f.rotY} />
-      ))}
     </group>
   );
 }
@@ -131,4 +115,3 @@ useGLTF.preload('/models/log_stack.glb');
 useGLTF.preload('/models/log_stackLarge.glb');
 useGLTF.preload('/models/stump_roundDetailed.glb');
 useGLTF.preload('/models/canoe.glb');
-useGLTF.preload('/models/fence_simple.glb');
