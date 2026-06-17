@@ -11,7 +11,9 @@
     "amenities": "Amenities",
     "gallery": "Gallery",
     "faq": "FAQ",
-    "contact": "Contact"
+    "contact": "Contact",
+    "info": "Location & FAQ",
+    "infoSubtitle": "How to get here and frequently asked questions"
   },
   "hero": {
     "badge": "✦ Olympos, Antalya ✦",

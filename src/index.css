@@ -70,6 +70,21 @@ h6 {
   }
 }
 
+/* ─── Hero animated background ──────────────────────────────────────────── */
+@keyframes bokehFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+  33%       { transform: translate(14px, -18px) scale(1.06); opacity: 0.75; }
+  66%       { transform: translate(-10px, 12px) scale(0.95); opacity: 0.9; }
+}
+
+@keyframes fireflyFloat {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  8%   { opacity: 0.9; }
+  50%  { transform: translateY(-42vh) translateX(14px); opacity: 0.5; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-88vh) translateX(-8px); opacity: 0; }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;

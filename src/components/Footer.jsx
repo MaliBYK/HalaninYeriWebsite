@@ -1,17 +1,15 @@
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../i18n/useLanguage';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 
-const QUICK_LINK_IDS = ['hero', 'about', 'amenities', 'gallery', 'faq', 'contact'];
+const QUICK_LINKS = [
+  { labelKey: 'navLinks.hero',    to: '/' },
+  { labelKey: 'navLinks.gallery', to: '/galeri' },
+  { labelKey: 'navLinks.info',    to: '/bilgi' },
+];
 
 function Footer() {
   const { t } = useLanguage();
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className="bg-wood text-cream">
@@ -53,14 +51,14 @@ function Footer() {
               {t('footer.quickLinksTitle')}
             </h4>
             <ul className="flex flex-col gap-2">
-              {QUICK_LINK_IDS.map((id) => (
-                <li key={id}>
-                  <button
-                    onClick={() => scrollToSection(id)}
+              {QUICK_LINKS.map(({ labelKey, to }) => (
+                <li key={to}>
+                  <Link
+                    to={to}
                     className="font-body text-cream/70 cursor-pointer transition-all duration-300 hover:text-gold"
                   >
-                    {t(`navLinks.${id}`)}
-                  </button>
+                    {t(labelKey)}
+                  </Link>
                 </li>
               ))}
             </ul>

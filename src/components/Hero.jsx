@@ -1,26 +1,16 @@
 import { useLanguage } from '../i18n/useLanguage';
 import { openWhatsAppReservation } from '../utils/whatsapp';
+import AnimatedBg from './AnimatedBg';
 
 function Hero() {
   const { t } = useLanguage();
-
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background layer (placeholder for a photo) */}
-      <div className="absolute inset-0 bg-gradient-to-br from-wood-light via-forest to-wood" />
-
-      {/* Gradient overlay: forest -> wood, opacity 0.75 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-forest to-wood opacity-75" />
+      <AnimatedBg />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto animate-fade-in">
@@ -43,18 +33,18 @@ function Hero() {
           >
             🏕️ {t('hero.cta')}
           </button>
-          <button
-            onClick={() => scrollToSection('about')}
+          <a
+            href="#about"
             className="bg-transparent border-2 border-white text-white font-body font-bold text-lg px-8 py-4 rounded-full cursor-pointer transition-all duration-300 hover:bg-white hover:text-wood"
           >
             {t('hero.explore')}
-          </button>
+          </a>
         </div>
       </div>
 
-      {/* Rating badge */}
+      {/* Rating badge → scrolls to Reviews */}
       <button
-        onClick={() => scrollToSection('reviews')}
+        onClick={() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' })}
         className="absolute bottom-6 right-6 z-10 bg-cream/90 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg animate-fade-in cursor-pointer transition-all duration-300 hover:bg-cream hover:scale-105"
       >
         <p className="font-body text-wood font-bold text-sm sm:text-base">

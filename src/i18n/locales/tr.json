@@ -11,7 +11,9 @@
     "amenities": "Olanaklar",
     "gallery": "Galeri",
     "faq": "SSS",
-    "contact": "İletişim"
+    "contact": "İletişim",
+    "info": "Konum & SSS",
+    "infoSubtitle": "Nasıl ulaşılır ve sık sorulan sorular"
   },
   "hero": {
     "badge": "✦ Olympos, Antalya ✦",

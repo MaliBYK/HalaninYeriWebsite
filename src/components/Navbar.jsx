@@ -1,21 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { useLanguage } from '../i18n/useLanguage';
 import { LANGUAGES } from '../i18n/languages';
 import { openWhatsAppReservation } from '../utils/whatsapp';
 
-const NAV_LINK_IDS = ['hero', 'about', 'amenities', 'gallery', 'faq', 'contact'];
+const PAGE_LINKS = [
+  { key: 'gallery', to: '/galeri' },
+  { key: 'info',    to: '/bilgi'  },
+];
 
 function Navbar() {
   const { language, setLanguage, t } = useLanguage();
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled]       = useState(false);
+  const [menuOpen, setMenuOpen]       = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const langMenuRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -30,14 +32,6 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-    setMenuOpen(false);
-  };
-
   const handleReservationClick = () => {
     openWhatsAppReservation(t('reservationWhatsApp.message'));
     setMenuOpen(false);
@@ -50,6 +44,11 @@ function Navbar() {
 
   const currentLanguage = LANGUAGES.find((lang) => lang.code === language) ?? LANGUAGES[0];
 
+  const navLinkClass = ({ isActive }) =>
+    `font-body cursor-pointer transition-all duration-300 ${
+      isActive ? 'text-gold' : 'text-cream hover:text-gold'
+    }`;
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -57,23 +56,20 @@ function Navbar() {
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-        <button
-          onClick={() => scrollToSection('hero')}
-          className="font-display text-xl sm:text-2xl font-bold text-cream cursor-pointer transition-all duration-300"
+        {/* Brand */}
+        <Link
+          to="/"
+          className="font-display text-xl sm:text-2xl font-bold text-cream cursor-pointer transition-all duration-300 hover:text-gold"
         >
           {t('nav.brand')}
-        </button>
+        </Link>
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-8">
-          {NAV_LINK_IDS.map((id) => (
-            <button
-              key={id}
-              onClick={() => scrollToSection(id)}
-              className="font-body text-cream hover:text-gold cursor-pointer transition-all duration-300"
-            >
-              {t(`navLinks.${id}`)}
-            </button>
+          {PAGE_LINKS.map(({ key, to }) => (
+            <NavLink key={key} to={to} className={navLinkClass}>
+              {t(`navLinks.${key}`)}
+            </NavLink>
           ))}
         </div>
 
@@ -140,14 +136,19 @@ function Navbar() {
           menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        {NAV_LINK_IDS.map((id) => (
-          <button
-            key={id}
-            onClick={() => scrollToSection(id)}
-            className="font-display text-2xl text-cream hover:text-gold cursor-pointer transition-all duration-300"
+        {PAGE_LINKS.map(({ key, to }) => (
+          <NavLink
+            key={key}
+            to={to}
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              `font-display text-2xl cursor-pointer transition-all duration-300 ${
+                isActive ? 'text-gold' : 'text-cream hover:text-gold'
+              }`
+            }
           >
-            {t(`navLinks.${id}`)}
-          </button>
+            {t(`navLinks.${key}`)}
+          </NavLink>
         ))}
         <button
           onClick={handleReservationClick}

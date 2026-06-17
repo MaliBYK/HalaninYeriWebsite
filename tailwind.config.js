@@ -27,11 +27,21 @@ export default {
           '0%': { opacity: '0', transform: 'scale(0.85)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        heroShift: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        vignetteBreath: {
+          '0%, 100%': { opacity: '0.88' },
+          '50%': { opacity: '1' },
+        },
       },
       animation: {
         'fade-in': 'fadeIn 1s ease-out forwards',
         'fade-up': 'fadeUp 0.8s ease-out forwards',
         'scale-in': 'scaleIn 0.3s ease-out forwards',
+        'hero-shift': 'heroShift 18s ease-in-out infinite',
+        'vignette-breath': 'vignetteBreath 8s ease-in-out infinite',
       },
     },
   },
