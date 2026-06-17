@@ -5,61 +5,79 @@ import { MathUtils, Vector3 } from 'three';
 import useStore from '../../store/useStore';
 import { useCameraPath } from '../../hooks/useCameraPath';
 import { usePointerParallax } from '../../hooks/usePointerParallax';
-import { BOOKING_START } from '../../lib/config';
+import {
+  GALLERY_START,
+  BOOKING_START,
+  GALLERY_CENTER,
+  ORBIT_RADIUS,
+} from '../../lib/config';
 
 const _camTarget = new Vector3();
 const _lookTarget = new Vector3();
 const _pxTarget = new Vector3();
+
+const GC = new Vector3(...GALLERY_CENTER);
 
 export default function CameraRig() {
   const { camera } = useThree();
   const curve = useCameraPath();
   const pointer = usePointerParallax();
 
-  const posRef = useRef(new Vector3(0, 1.8, 20));
-  const lookRef = useRef(new Vector3(0, 1.6, 14));
-  const pxRef  = useRef(new Vector3());
-  const fovRef = useRef(62);
+  // Smooth current state
+  const posRef = useRef(new Vector3(0, 2.5, 14));
+  const lookRef = useRef(new Vector3(0, 1.5, 8));
+  const pxRef = useRef(new Vector3());
+  const fovRef = useRef(60);
 
   useFrame((_, rawDelta) => {
     const delta = Math.min(rawDelta, 0.1);
     const progress = useStore.getState().scrollProgress;
 
-    if (progress < BOOKING_START) {
-      // ── Path traversal: progress 0→BOOKING_START maps to curve t 0→1 ──
-      const t = MathUtils.clamp(progress / BOOKING_START, 0, 1);
+    if (progress < GALLERY_START) {
+      // ── Path traversal: map 0→GALLERY_START to curve t 0→1 ──
+      const t = MathUtils.clamp(progress / GALLERY_START, 0, 1);
       curve.getPointAt(t, _camTarget);
 
-      // Look slightly ahead on the curve
-      const lookT = MathUtils.clamp(t + 0.06, 0, 1);
+      const lookT = MathUtils.clamp(t + 0.07, 0, 1);
       curve.getPointAt(lookT, _lookTarget);
-      _lookTarget.y -= 0.2;
+      _lookTarget.y -= 0.3;
 
-      // FOV narrows as camera enters the tent (t > 0.60)
-      const insideFactor = MathUtils.clamp(MathUtils.mapLinear(t, 0.58, 0.85, 0, 1), 0, 1);
-      const targetFov = MathUtils.lerp(64, 50, insideFactor);
-      fovRef.current = MathUtils.lerp(fovRef.current, targetFov, delta * 2.0);
+      fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
 
-    } else {
-      // ── Aerial rise: camera lifts for bird's-eye view ──
-      const riseP = MathUtils.mapLinear(progress, BOOKING_START, 1.0, 0, 1);
-      const ease  = 1 - Math.pow(1 - riseP, 3); // cubic ease-out
+    } else if (progress < BOOKING_START) {
+      // ── Gallery orbit: camera circles scene centre ──
+      const orbitP = MathUtils.mapLinear(progress, GALLERY_START, BOOKING_START, 0, 1);
+      const angle = orbitP * Math.PI * 0.4; // 72° arc
 
       _camTarget.set(
-        0,
-        MathUtils.lerp(3.0, 26, ease),
-        MathUtils.lerp(-7, -10, ease),  // drift back to centre over full camp
+        GC.x + Math.sin(angle) * ORBIT_RADIUS,
+        GC.y,
+        GC.z - Math.cos(angle) * ORBIT_RADIUS,
       );
-      _lookTarget.set(0, 0, -13);  // look at camp centre (tent + platforms)
+      _lookTarget.copy(GC);
 
-      const targetFov = MathUtils.lerp(50, 44, ease);
+      fovRef.current = MathUtils.lerp(fovRef.current, 60, delta * 3);
+
+    } else {
+      // ── Booking rise: camera lifts for bird's-eye ──
+      const riseP = MathUtils.mapLinear(progress, BOOKING_START, 1.0, 0, 1);
+      const ease = 1 - Math.pow(1 - riseP, 3); // cubic ease-out
+
+      _camTarget.set(
+        MathUtils.lerp(2, 0, ease),
+        MathUtils.lerp(3.5, 22, ease),
+        MathUtils.lerp(-10, -7, ease),
+      );
+      _lookTarget.set(0, 0, -12);
+
+      const targetFov = MathUtils.lerp(60, 38, ease);
       fovRef.current = MathUtils.lerp(fovRef.current, targetFov, delta * 2.5);
     }
 
     // ── Pointer parallax (desktop only, reduced-motion safe) ──
     _pxTarget.set(
-      (pointer.current?.x ?? 0) * 0.22,
-      (pointer.current?.y ?? 0) * 0.14,
+      (pointer.current?.x ?? 0) * 0.28,
+      (pointer.current?.y ?? 0) * 0.18,
       0,
     );
     pxRef.current.lerp(_pxTarget, delta * 3.5);
