@@ -43,6 +43,7 @@ export default function Loader() {
         background: 'linear-gradient(135deg, #050D04 0%, #0D1F08 50%, #1A0E04 100%)',
         transition: 'opacity 0.6s ease',
         opacity: isDone ? 0 : 1,
+        pointerEvents: isDone ? 'none' : 'auto',
       }}
     >
       <p className="font-body text-[#D4870A] text-xs tracking-[0.3em] uppercase mb-5">
