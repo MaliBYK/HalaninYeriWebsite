@@ -3,13 +3,11 @@ import { HERO } from '../../../lib/content';
 import { WHATSAPP_NUMBER } from '../../../lib/config';
 import useStore from '../../../store/useStore';
 
-function getWhatsAppUrl(msg) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-}
+const WA_BOOKING = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('🏕️ Merhaba, rezervasyon yapmak istiyorum')}`;
+
+const stop = (e) => e.stopPropagation();
 
 export default function HeroOverlay() {
-  const goTo = useStore((s) => s.goTo);
-
   return (
     <div className="h-screen flex flex-col items-center justify-center overflow-hidden relative">
 
@@ -52,16 +50,22 @@ export default function HeroOverlay() {
 
       {/* CTAs */}
       <div className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade">
+
+        {/* Rezervasyon Yap — direct WhatsApp link */}
         <a
-          href={getWhatsAppUrl('🏕️ Merhaba, rezervasyon yapmak istiyorum')}
+          href={WA_BOOKING}
           target="_blank"
           rel="noopener noreferrer"
+          onTouchEnd={stop}
           className="py-3 sm:py-3.5 px-8 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-700 rounded-full transition-colors duration-200 text-center pointer-events-auto text-sm sm:text-base"
         >
           🏕️ {HERO.cta}
         </a>
+
+        {/* Keşfet — scroll to about section */}
         <button
-          onClick={() => goTo?.(1)}
+          onTouchEnd={stop}
+          onClick={() => useStore.getState().goTo?.(1)}
           className="py-3 sm:py-3.5 px-8 glass text-cream/90 hover:text-cream font-body rounded-full transition-colors duration-200 pointer-events-auto text-sm sm:text-base"
         >
           Keşfet ↓
@@ -70,14 +74,15 @@ export default function HeroOverlay() {
 
       {/* Rating badge — navigates to reviews (gallery section) */}
       <div
+        onTouchEnd={stop}
+        onClick={() => useStore.getState().goTo?.(2)}
         className="relative mt-4 sm:mt-8 glass px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2 section-fade pointer-events-auto cursor-pointer"
-        onClick={() => goTo?.(2)}
       >
         <span className="text-[#D4870A] text-xs sm:text-sm font-body">{HERO.rating}</span>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 sm:bottom-10 flex flex-col items-center gap-2 scroll-pulse">
+      <div className="absolute bottom-6 sm:bottom-10 flex flex-col items-center gap-2 scroll-pulse pointer-events-none">
         <div className="w-px h-8 sm:h-10 bg-gradient-to-b from-transparent via-[#D4870A]/60 to-transparent" />
         <span className="font-body text-xs text-cream/50 tracking-widest uppercase">scroll</span>
       </div>
