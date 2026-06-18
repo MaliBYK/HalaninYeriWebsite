@@ -1,11 +1,6 @@
 'use client';
 import { ABOUT, AMENITIES } from '../../../lib/content';
-import { WHATSAPP_NUMBER } from '../../../lib/config';
 import useStore from '../../../store/useStore';
-
-function getWhatsAppUrl(msg) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-}
 
 export default function AboutOverlay() {
   const isActive = useStore((s) => s.activeSection === 'about');
@@ -53,14 +48,6 @@ export default function AboutOverlay() {
             ))}
           </div>
 
-          <a
-            href={getWhatsAppUrl('🏕️ Merhaba, rezervasyon yapmak istiyorum')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-2.5 sm:py-3 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body text-sm rounded-full transition-colors duration-200 pointer-events-auto"
-          >
-            {ABOUT.cta}
-          </a>
         </div>
 
         {/* Full amenities card — desktop only */}
