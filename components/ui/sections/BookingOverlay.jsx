@@ -115,11 +115,6 @@ export default function BookingOverlay() {
             </a>
           </div>
 
-          {!selectedSpot && (
-            <p className="font-body text-cream/35 text-xs text-center mt-2 sm:mt-3">
-              💡 Yukarıdan bir platform seçebilirsiniz
-            </p>
-          )}
         </div>
 
         {/* Right column: contact + location — tablet/desktop only */}
