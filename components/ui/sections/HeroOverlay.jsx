@@ -1,13 +1,15 @@
 'use client';
 import { HERO } from '../../../lib/content';
 import { WHATSAPP_NUMBER } from '../../../lib/config';
-import { nav } from '../../../hooks/useLenisScroll';
+import useStore from '../../../store/useStore';
 
 function getWhatsAppUrl(msg) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
 export default function HeroOverlay() {
+  const goTo = useStore((s) => s.goTo);
+
   return (
     <div className="h-screen flex flex-col items-center justify-center overflow-hidden relative">
 
@@ -59,17 +61,17 @@ export default function HeroOverlay() {
           🏕️ {HERO.cta}
         </a>
         <button
-          onClick={() => nav.goTo?.(1)}
+          onClick={() => goTo?.(1)}
           className="py-3 sm:py-3.5 px-8 glass text-cream/90 hover:text-cream font-body rounded-full transition-colors duration-200 pointer-events-auto text-sm sm:text-base"
         >
           Keşfet ↓
         </button>
       </div>
 
-      {/* Rating badge */}
+      {/* Rating badge — navigates to reviews (gallery section) */}
       <div
         className="relative mt-4 sm:mt-8 glass px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2 section-fade pointer-events-auto cursor-pointer"
-        onClick={() => nav.goTo?.(2)}
+        onClick={() => goTo?.(2)}
       >
         <span className="text-[#D4870A] text-xs sm:text-sm font-body">{HERO.rating}</span>
       </div>

@@ -1,6 +1,5 @@
 'use client';
-import { useState } from 'react';
-import { BOOKING, CONTACT, LOCATION, PLATFORM_SPOTS } from '../../../lib/content';
+import { BOOKING, CONTACT, LOCATION } from '../../../lib/content';
 import { WHATSAPP_NUMBER, INSTAGRAM_HANDLE, GOOGLE_MAPS_URL } from '../../../lib/config';
 import useStore from '../../../store/useStore';
 
@@ -8,30 +7,8 @@ function getWhatsAppUrl(msg) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
 
-function buildReservationMessage({ name, checkIn, checkOut, guests, platform }) {
-  let msg = '🏕️ Merhaba, rezervasyon yapmak istiyorum.\n';
-  if (name)     msg += `İsim: ${name}\n`;
-  if (checkIn)  msg += `Giriş: ${checkIn}\n`;
-  if (checkOut) msg += `Çıkış: ${checkOut}\n`;
-  if (guests)   msg += `Kişi: ${guests}\n`;
-  if (platform) msg += `Platform: ${platform}\n`;
-  return msg.trim();
-}
-
 export default function BookingOverlay() {
-  const [form, setForm] = useState({ name: '', checkIn: '', checkOut: '', guests: 2 });
-  const selectedPlatformId = useStore((s) => s.selectedPlatformId);
-  const selectedSpot = PLATFORM_SPOTS.find((p) => p.id === selectedPlatformId);
   const isActive = useStore((s) => s.activeSection === 'booking');
-
-  const update = (key) => (e) => setForm((p) => ({ ...p, [key]: e.target.value }));
-
-  const handleBook = () => {
-    const url = getWhatsAppUrl(
-      buildReservationMessage({ ...form, platform: selectedSpot?.label }),
-    );
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
 
   return (
     <div
@@ -42,79 +19,33 @@ export default function BookingOverlay() {
         transition: 'opacity 0.5s ease, transform 0.5s ease',
       }}
     >
-      {/* md+ : 2-column grid. mobile: single column (form only) */}
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
 
-        {/* Booking form */}
-        <div className="glass rounded-2xl p-5 sm:p-8">
-          <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-1 sm:mb-2">
+        {/* Main CTA card */}
+        <div className="glass rounded-2xl p-6 sm:p-10 flex flex-col items-center text-center gap-4 sm:gap-6">
+          <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase">
             Rezervasyon
           </p>
-          <h2 className="font-display text-cream text-2xl sm:text-3xl mb-1 sm:mb-2">{BOOKING.title}</h2>
-          <p className="font-body text-cream/60 text-sm mb-4 sm:mb-5">{BOOKING.subtitle}</p>
-
-          {selectedSpot && (
-            <div className="mb-3 sm:mb-4 flex items-center gap-2 bg-[#3FA828]/15 border border-[#3FA828]/30 rounded-lg px-4 py-2.5">
-              <span className="text-[#3FA828] text-sm">✓</span>
-              <span className="font-body text-cream text-sm">{selectedSpot.label} seçildi</span>
-              <button
-                onClick={() => useStore.getState().setSelectedPlatform(null)}
-                className="ml-auto font-body text-cream/40 text-xs hover:text-cream/70 pointer-events-auto"
-              >✕</button>
-            </div>
-          )}
-
-          <div className="flex flex-col gap-3">
-            <input
-              type="text"
-              placeholder="Ad Soyad"
-              value={form.name}
-              onChange={update('name')}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 font-body text-cream text-sm placeholder:text-cream/30 focus:outline-none focus:border-[#D4870A]/50 pointer-events-auto"
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="font-body text-cream/50 text-xs mb-1 block">Giriş</label>
-                <input type="date" value={form.checkIn} onChange={update('checkIn')}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 sm:py-3 font-body text-cream text-sm focus:outline-none focus:border-[#D4870A]/50 pointer-events-auto [color-scheme:dark]"
-                />
-              </div>
-              <div>
-                <label className="font-body text-cream/50 text-xs mb-1 block">Çıkış</label>
-                <input type="date" value={form.checkOut} onChange={update('checkOut')}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 sm:py-3 font-body text-cream text-sm focus:outline-none focus:border-[#D4870A]/50 pointer-events-auto [color-scheme:dark]"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="font-body text-cream/50 text-xs mb-1 block">Kişi Sayısı</label>
-              <select value={form.guests} onChange={update('guests')}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 sm:py-3 font-body text-cream text-sm focus:outline-none focus:border-[#D4870A]/50 pointer-events-auto [color-scheme:dark]"
-              >
-                {[1,2,3,4,5,6,7,8].map((n) => <option key={n} value={n}>{n} Kişi</option>)}
-              </select>
-            </div>
-            <button
-              onClick={handleBook}
-              className="w-full py-3.5 sm:py-4 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-semibold rounded-full transition-colors duration-200 pointer-events-auto mt-1"
-            >
-              📲 {BOOKING.cta}
-            </button>
-          </div>
-
-          {/* Compact contact links — mobile only (right column hidden) */}
-          <div className="flex items-center justify-center gap-4 mt-4 md:hidden">
-            <a href={getWhatsAppUrl(BOOKING.infoMessage)} target="_blank" rel="noopener noreferrer"
-              className="font-body text-cream/60 hover:text-cream text-xs transition-colors pointer-events-auto">
-              📱 {CONTACT.whatsapp}
-            </a>
-            <span className="text-cream/20">·</span>
-            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer"
-              className="font-body text-[#D4870A] hover:text-[#E89B1A] text-xs transition-colors pointer-events-auto">
-              📍 Harita
-            </a>
-          </div>
-
+          <h2 className="font-display text-cream text-3xl sm:text-4xl">{BOOKING.title}</h2>
+          <p className="font-body text-cream/60 text-sm max-w-xs">
+            {BOOKING.subtitle}
+          </p>
+          <a
+            href={getWhatsAppUrl(BOOKING.message)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-4 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-semibold rounded-full transition-colors duration-200 pointer-events-auto text-base flex items-center justify-center gap-2"
+          >
+            📲 {BOOKING.cta}
+          </a>
+          <a
+            href={getWhatsAppUrl(BOOKING.infoMessage)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body text-cream/50 hover:text-cream/80 text-sm transition-colors pointer-events-auto"
+          >
+            Sadece bilgi almak istiyorum →
+          </a>
         </div>
 
         {/* Right column: contact + location — tablet/desktop only */}

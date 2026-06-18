@@ -7,6 +7,7 @@ const useStore = create((set) => ({
   sectionIndex: 0,
   selectedPlatformId: null,
   booking: { checkIn: '', checkOut: '', guests: 2, name: '', phone: '' },
+  goTo: null,
 
   setScrollProgress:  (v)    => set({ scrollProgress: v }),
   setQualityTier:     (tier) => set({ qualityTier: tier }),
@@ -14,6 +15,7 @@ const useStore = create((set) => ({
   setSectionIndex:    (i)    => set({ sectionIndex: i }),
   setSelectedPlatform:(id)   => set({ selectedPlatformId: id }),
   setBooking: (data) => set((s) => ({ booking: { ...s.booking, ...data } })),
+  setGoTo:    (fn)   => set({ goTo: fn }),
 }));
 
 export default useStore;
