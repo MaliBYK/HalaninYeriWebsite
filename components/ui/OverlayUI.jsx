@@ -1,6 +1,5 @@
 'use client';
 import useStore from '../../store/useStore';
-import { nav } from '../../hooks/useLenisScroll';
 import { SECTIONS } from '../../lib/config';
 import HeroOverlay from './sections/HeroOverlay';
 import AboutOverlay from './sections/AboutOverlay';
@@ -65,7 +64,7 @@ function SectionLayer({ sectionId, children }) {
 // Right-edge dot navigation
 function NavDots() {
   const progress = useStore((s) => s.scrollProgress);
-  // Active dot = last section whose start has been reached
+  const goTo     = useStore((s) => s.goTo);
   const currentIdx = SECTIONS.reduce((acc, s, i) => (progress >= s.start ? i : acc), 0);
 
   return (
@@ -77,7 +76,7 @@ function NavDots() {
         <button
           key={s.id}
           aria-label={`Go to ${s.id} section`}
-          onClick={() => nav.goTo?.(i)}
+          onClick={() => goTo?.(i)}
           className="rounded-full transition-all duration-300 focus:outline-none"
           style={{
             width:      i === currentIdx ? 10 : 7,

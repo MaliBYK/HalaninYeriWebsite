@@ -41,6 +41,7 @@ export function useLenisScroll() {
     };
 
     nav.goTo = goTo;
+    useStore.getState().setGoTo(goTo);
 
     const onWheel = (e) => {
       if (Math.abs(e.deltaY) < 5) return;
@@ -91,6 +92,7 @@ export function useLenisScroll() {
     return () => {
       tween?.kill();
       nav.goTo = null;
+      useStore.getState().setGoTo(null);
       window.removeEventListener('wheel',      onWheel);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchend',   onTouchEnd);
