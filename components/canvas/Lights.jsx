@@ -1,20 +1,44 @@
 'use client';
+import { MathUtils } from 'three';
 import useStore from '../../store/useStore';
 import { QUALITY_CONFIG } from '../../lib/config';
 
+function nightFactor(tod) {
+  if (tod >= 21 || tod <= 4) return 1;
+  if (tod > 18 && tod < 21) return (tod - 18) / 3;
+  if (tod > 4 && tod < 7)  return 1 - (tod - 4) / 3;
+  return 0;
+}
+
+function lerpHex(a, b, t) {
+  const p = (h) => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  const ca = p(a), cb = p(b);
+  return '#' + ca.map((v,i) => Math.round(v + (cb[i]-v)*t).toString(16).padStart(2,'0')).join('');
+}
+
 export default function Lights() {
-  const tier = useStore((s) => s.qualityTier);
+  const tier       = useStore((s) => s.qualityTier);
+  const tod        = useStore((s) => s.timeOfDay);
   const shadowSize = QUALITY_CONFIG[tier]?.shadowMapSize ?? 1024;
+  const nf         = nightFactor(tod);
+
+  const ambientIntensity = MathUtils.lerp(0.55, 0.06, nf);
+  const ambientColor     = lerpHex('#FFF8E8', '#1A2060', nf);
+  const sunIntensity     = MathUtils.lerp(2.8, 0.0, nf);
+  const moonIntensity    = MathUtils.lerp(0.0, 0.4, nf);
+  const fillIntensity    = MathUtils.lerp(0.45, 0.0, nf);
+  const hemSkyColor      = lerpHex('#87CEEB', '#080E30', nf);
+  const hemGroundColor   = lerpHex('#6A8A30', '#050A05', nf);
+  const hemIntensity     = MathUtils.lerp(0.50, 0.12, nf);
 
   return (
     <>
-      {/* Bright midday ambient — fills shadows softly */}
-      <ambientLight intensity={0.55} color="#FFF8E8" />
+      <ambientLight intensity={ambientIntensity} color={ambientColor} />
 
-      {/* Main sun — high in the sky, warm white */}
+      {/* Sun — fades to zero at night */}
       <directionalLight
         position={[25, 38, 20]}
-        intensity={2.8}
+        intensity={sunIntensity}
         color="#FFF8D0"
         castShadow
         shadow-mapSize={[shadowSize, shadowSize]}
@@ -26,15 +50,14 @@ export default function Lights() {
         shadow-camera-bottom={-55}
       />
 
-      {/* Soft sky fill from opposite side */}
-      <directionalLight
-        position={[-18, 12, -15]}
-        intensity={0.45}
-        color="#C8DFF5"
-      />
+      {/* Moon — fades in at night */}
+      <directionalLight position={[-20, 35, -15]} intensity={moonIntensity} color="#8899DD" />
 
-      {/* Hemisphere — sky blue above, warm earth below */}
-      <hemisphereLight args={['#87CEEB', '#6A8A30', 0.50]} />
+      {/* Sky fill — day only */}
+      <directionalLight position={[-18, 12, -15]} intensity={fillIntensity} color="#C8DFF5" />
+
+      {/* Hemisphere */}
+      <hemisphereLight color={hemSkyColor} groundColor={hemGroundColor} intensity={hemIntensity} />
     </>
   );
 }

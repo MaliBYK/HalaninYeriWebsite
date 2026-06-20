@@ -5,6 +5,7 @@ import { PerformanceMonitor, AdaptiveDpr } from '@react-three/drei';
 import CameraRig from './CameraRig';
 import Lights from './Lights';
 import Atmosphere from './Atmosphere';
+import Stars from './Stars';
 import Effects from './Effects';
 import Trees from '../models/Trees';
 import Campfire from '../models/Campfire';
@@ -36,6 +37,7 @@ function SceneContent() {
       <CameraRig />
       <Lights />
       <Atmosphere />
+      <Stars />
       <Trees />
       <Campfire />
       <TrailScene />

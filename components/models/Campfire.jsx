@@ -43,7 +43,11 @@ const STUMP_ANGLES = [0.4, 2.0, 3.7, 5.1];
 
 export default function Campfire() {
   const tier  = useStore((s) => s.qualityTier);
+  const tod   = useStore((s) => s.timeOfDay);
   const COUNT = QUALITY_CONFIG[tier]?.fireParticles ?? 500;
+
+  // Fire is lit from 20:00 (8 PM) to 04:00 (4 AM)
+  const isLit = tod >= 20 || tod < 4;
 
   const { scene: fireScene }  = useGLTF('/models/campfire_stones.glb');
   const { scene: stumpScene } = useGLTF('/models/stump_round.glb');
@@ -72,6 +76,10 @@ export default function Campfire() {
   const lightRef = useRef();
 
   useFrame(({ clock }) => {
+    if (!isLit) {
+      if (lightRef.current) lightRef.current.intensity = 0;
+      return;
+    }
     const t = clock.getElapsedTime();
     uniforms.uTime.value = t;
     if (lightRef.current)
@@ -80,10 +88,10 @@ export default function Campfire() {
 
   return (
     <group>
-      {/* Stone ring + logs */}
+      {/* Stone ring + logs — always visible */}
       <primitive object={fireClone} />
 
-      {/* Stump seating around fire */}
+      {/* Stump seating around fire — always visible */}
       {STUMP_ANGLES.map((angle, i) => (
         <primitive
           key={i}
@@ -93,21 +101,23 @@ export default function Campfire() {
         />
       ))}
 
-      {/* Fire particles */}
-      <points>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={COUNT} array={positions} itemSize={3} />
-          <bufferAttribute attach="attributes-aPhase"   count={COUNT} array={phases}    itemSize={1} />
-          <bufferAttribute attach="attributes-aSpeed"   count={COUNT} array={speeds}    itemSize={1} />
-        </bufferGeometry>
-        <shaderMaterial
-          vertexShader={VERT} fragmentShader={FRAG} uniforms={uniforms}
-          transparent depthWrite={false} blending={AdditiveBlending}
-        />
-      </points>
+      {/* Fire particles — only when lit */}
+      {isLit && (
+        <points>
+          <bufferGeometry>
+            <bufferAttribute attach="attributes-position" count={COUNT} array={positions} itemSize={3} />
+            <bufferAttribute attach="attributes-aPhase"   count={COUNT} array={phases}    itemSize={1} />
+            <bufferAttribute attach="attributes-aSpeed"   count={COUNT} array={speeds}    itemSize={1} />
+          </bufferGeometry>
+          <shaderMaterial
+            vertexShader={VERT} fragmentShader={FRAG} uniforms={uniforms}
+            transparent depthWrite={false} blending={AdditiveBlending}
+          />
+        </points>
+      )}
 
-      {/* Flickering fire light */}
-      <pointLight ref={lightRef} color="#FF6018" intensity={4.5} distance={20} decay={2} />
+      {/* Flickering fire light — always mounted, intensity set to 0 when unlit */}
+      <pointLight ref={lightRef} color="#FF6018" intensity={isLit ? 4.5 : 0} distance={20} decay={2} />
     </group>
   );
 }
