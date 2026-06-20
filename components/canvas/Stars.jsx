@@ -1,13 +1,7 @@
 'use client';
 import { useMemo } from 'react';
 import useStore from '../../store/useStore';
-
-function nightFactor(tod) {
-  if (tod >= 21 || tod <= 4) return 1;
-  if (tod > 18 && tod < 21) return (tod - 18) / 3;
-  if (tod > 4 && tod < 7)  return 1 - (tod - 4) / 3;
-  return 0;
-}
+import { nightFactor } from '../../lib/timeUtils';
 
 const STAR_COUNT = 1400;
 
@@ -19,7 +13,7 @@ export default function Stars() {
     const pos = new Float32Array(STAR_COUNT * 3);
     for (let i = 0; i < STAR_COUNT; i++) {
       const theta = Math.random() * Math.PI * 2;
-      const phi   = Math.random() * Math.PI * 0.48; // upper hemisphere only
+      const phi   = Math.random() * Math.PI * 0.48;
       const r     = 155 + Math.random() * 25;
       pos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.cos(phi);
