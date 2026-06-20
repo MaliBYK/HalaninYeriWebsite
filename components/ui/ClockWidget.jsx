@@ -10,11 +10,9 @@ export default function ClockWidget() {
   const barRef   = useRef(null);
   const dragging = useRef(false);
 
-  // Seed with current Antalya time on first mount (UTC+3, no DST)
+  // Start at 19:00 (7 PM) — dusk / torch & campfire lighting hour
   useEffect(() => {
-    const now = new Date();
-    const t = ((now.getUTCHours() + 3) % 24) + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600;
-    useStore.getState().setTimeOfDay(t);
+    useStore.getState().setTimeOfDay(19);
   }, []);
 
   const applyX = useCallback((clientX) => {
