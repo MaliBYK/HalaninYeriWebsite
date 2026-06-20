@@ -1,15 +1,9 @@
 'use client';
 import { useRef, useEffect, useCallback } from 'react';
 import useStore from '../../store/useStore';
+import { nightFactor } from '../../lib/timeUtils';
 
 function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
-
-function nightFactor(tod) {
-  if (tod >= 21 || tod <= 4) return 1;
-  if (tod > 18 && tod < 21) return (tod - 18) / 3;
-  if (tod > 4 && tod < 7)  return 1 - (tod - 4) / 3;
-  return 0;
-}
 
 export default function ClockWidget() {
   const tod      = useStore((s) => s.timeOfDay);

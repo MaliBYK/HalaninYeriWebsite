@@ -77,6 +77,9 @@ export function useLenisScroll() {
     };
 
     const onKey = (e) => {
+      // Don't intercept keys while user is typing in a form field
+      const tag = e.target?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
       if (['ArrowDown', 'PageDown', ' '].includes(e.key)) {
         e.preventDefault(); goTo(idx + 1);
       } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
