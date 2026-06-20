@@ -44,9 +44,6 @@ function Lightbox({ photo, onClose }) {
           className="rounded-2xl object-contain shadow-2xl"
           style={{ maxWidth: 'min(70vw, 820px)', maxHeight: '75vh', display: 'block' }}
         />
-        <p className="mt-2 text-center font-body text-cream/60 text-xs tracking-wide">
-          {photo.alt}
-        </p>
         <button
           onClick={onClose}
           className="absolute -top-3 -right-3 w-9 h-9 rounded-full glass text-cream flex items-center justify-center text-base hover:bg-white/20 transition-colors cursor-pointer"
