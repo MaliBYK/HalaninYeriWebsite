@@ -144,31 +144,6 @@ export default function AboutOverlay() {
                 </div>
               ))}
             </div>
-
-            {/* Photo strip also on desktop amenities card (mobile shows inside about card) */}
-            <div className="border-t border-white/10 pt-4 mt-5">
-              <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
-                Anlarımızdan
-              </p>
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
-                {GALLERY_PHOTOS.map((photo, i) => (
-                  <button
-                    key={i}
-                    onClick={() => openPhoto(photo)}
-                    className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#D4870A]/60 hover:scale-105 transition-all duration-200 focus:outline-none bg-white/5"
-                    aria-label={photo.alt}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { e.currentTarget.style.opacity = '0'; }}
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Mobile: quick amenity chips below the about card */}
