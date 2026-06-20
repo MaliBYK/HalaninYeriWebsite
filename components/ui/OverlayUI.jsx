@@ -34,7 +34,8 @@ function getSectionOpacity(sec, progress) {
 
 // Fixed-position layer for each section, visibility driven by scrollProgress
 function SectionLayer({ sectionId, children }) {
-  const progress = useStore((s) => s.scrollProgress);
+  const progress       = useStore((s) => s.scrollProgress);
+  const activeSection  = useStore((s) => s.activeSection);
   const sec = SECTIONS.find((s) => s.id === sectionId);
   const opacity = getSectionOpacity(sec, progress);
 
@@ -52,7 +53,9 @@ function SectionLayer({ sectionId, children }) {
       style={{
         opacity,
         transform: `translateY(${ty}px)`,
-        pointerEvents: opacity > 0.5 ? 'auto' : 'none',
+        pointerEvents: activeSection === sectionId ? 'auto' : 'none',
+        userSelect: 'none',
+        cursor: 'default',
         willChange: 'opacity, transform',
       }}
     >
@@ -77,7 +80,7 @@ function NavDots() {
           key={s.id}
           aria-label={`Go to ${s.id} section`}
           onClick={() => goTo?.(i)}
-          className="rounded-full transition-all duration-300 focus:outline-none"
+          className="rounded-full transition-all duration-300 focus:outline-none cursor-pointer"
           style={{
             width:      i === currentIdx ? 10 : 7,
             height:     i === currentIdx ? 10 : 7,
