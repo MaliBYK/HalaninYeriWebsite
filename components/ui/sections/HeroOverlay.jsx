@@ -1,13 +1,31 @@
 'use client';
+import { useRef, useEffect } from 'react';
 import { HERO } from '../../../lib/content';
-import { WHATSAPP_NUMBER } from '../../../lib/config';
+import { WHATSAPP_NUMBER, GOOGLE_MAPS_URL } from '../../../lib/config';
 import useStore from '../../../store/useStore';
 
 const WA_BOOKING = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('🏕️ Merhaba, rezervasyon yapmak istiyorum')}`;
 
-const stop = (e) => e.stopPropagation();
-
 export default function HeroOverlay() {
+  const ctaRef = useRef(null);
+
+  // Block touch events from bubbling to the window scroll listener.
+  // React's stopPropagation only affects the synthetic event system;
+  // native window.addEventListener listeners are unaffected by it.
+  // Using a native listener here truly isolates button taps from the
+  // section-navigation logic in useLenisScroll.
+  useEffect(() => {
+    const el = ctaRef.current;
+    if (!el) return;
+    const block = (e) => e.stopPropagation();
+    el.addEventListener('touchstart', block, { passive: true });
+    el.addEventListener('touchend',   block, { passive: true });
+    return () => {
+      el.removeEventListener('touchstart', block);
+      el.removeEventListener('touchend',   block);
+    };
+  }, []);
+
   return (
     <div className="h-screen flex flex-col items-center justify-center overflow-hidden relative">
 
@@ -48,38 +66,39 @@ export default function HeroOverlay() {
         {HERO.subtitle}
       </p>
 
-      {/* CTAs */}
-      <div className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade">
-
-        {/* Rezervasyon Yap — direct WhatsApp link */}
+      {/* CTAs — native touch isolation so section scroll can't interfere */}
+      <div
+        ref={ctaRef}
+        className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade"
+      >
         <a
           href={WA_BOOKING}
           target="_blank"
           rel="noopener noreferrer"
-          onTouchEnd={stop}
-          className="py-3 sm:py-3.5 px-8 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-700 rounded-full transition-colors duration-200 text-center pointer-events-auto text-sm sm:text-base"
+          className="py-3 sm:py-3.5 px-8 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-700 rounded-full transition-colors duration-200 text-center pointer-events-auto text-sm sm:text-base cursor-pointer"
         >
           🏕️ {HERO.cta}
         </a>
-
-        {/* Keşfet — scroll to about section */}
         <button
-          onTouchEnd={stop}
           onClick={() => useStore.getState().goTo?.(1)}
-          className="py-3 sm:py-3.5 px-8 glass text-cream/90 hover:text-cream font-body rounded-full transition-colors duration-200 pointer-events-auto text-sm sm:text-base"
+          className="py-3 sm:py-3.5 px-8 glass text-cream/90 hover:text-cream font-body rounded-full transition-colors duration-200 pointer-events-auto text-sm sm:text-base cursor-pointer"
         >
           Keşfet ↓
         </button>
       </div>
 
-      {/* Rating badge — navigates to reviews (gallery section) */}
-      <div
-        onTouchEnd={stop}
-        onClick={() => useStore.getState().goTo?.(2)}
+      {/* Rating badge → Google Maps */}
+      <a
+        ref={undefined}
+        href={GOOGLE_MAPS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className="relative mt-4 sm:mt-8 glass px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2 section-fade pointer-events-auto cursor-pointer"
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchEnd={(e) => e.stopPropagation()}
       >
         <span className="text-[#D4870A] text-xs sm:text-sm font-body">{HERO.rating}</span>
-      </div>
+      </a>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-6 sm:bottom-10 flex flex-col items-center gap-2 scroll-pulse pointer-events-none">
