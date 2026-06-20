@@ -96,7 +96,7 @@ export default function BookingOverlay() {
             </div>
             <button
               onClick={handleBook}
-              className="w-full py-3.5 sm:py-4 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-semibold rounded-full transition-colors duration-200 pointer-events-auto mt-1"
+              className="w-full py-3.5 sm:py-4 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-semibold rounded-full transition-colors duration-200 pointer-events-auto mt-1 cursor-pointer"
             >
               📲 {BOOKING.cta}
             </button>
