@@ -46,8 +46,8 @@ export default function Campfire() {
   const tod   = useStore((s) => s.timeOfDay);
   const COUNT = QUALITY_CONFIG[tier]?.fireParticles ?? 500;
 
-  // Fire is lit from 20:00 (8 PM) to 04:00 (4 AM)
-  const isLit = tod >= 20 || tod < 4;
+  // Fire is lit from 19:00 (7 PM) to 04:00 (4 AM)
+  const isLit = tod >= 19 || tod < 4;
 
   const { scene: fireScene }  = useGLTF('/models/campfire_stones.glb');
   const { scene: stumpScene } = useGLTF('/models/stump_round.glb');
