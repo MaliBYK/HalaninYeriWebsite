@@ -4,12 +4,7 @@ import { createPortal } from 'react-dom';
 import { ABOUT, AMENITIES, GALLERY_PHOTOS } from '../../../lib/content';
 import useStore from '../../../store/useStore';
 
-// Rendered via portal (document.body) so the SectionLayer's `inert` attribute
-// cannot block lightbox interactions when the photo is open.
 function Lightbox({ photo, onClose }) {
-  // Block useLenisScroll's window listeners while lightbox is open.
-  // capture:true means our handler runs before bubble-phase window listeners.
-  // stopImmediatePropagation prevents all subsequent handlers in any phase.
   useEffect(() => {
     if (!photo) return;
     const block = (e) => e.stopImmediatePropagation();
@@ -23,7 +18,6 @@ function Lightbox({ photo, onClose }) {
     };
   }, [photo]);
 
-  // Close on Escape key
   useEffect(() => {
     if (!photo) return;
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };
@@ -50,11 +44,9 @@ function Lightbox({ photo, onClose }) {
           className="rounded-2xl object-contain shadow-2xl"
           style={{ maxWidth: 'min(70vw, 820px)', maxHeight: '75vh', display: 'block' }}
         />
-        {/* Caption */}
         <p className="mt-2 text-center font-body text-cream/60 text-xs tracking-wide">
           {photo.alt}
         </p>
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute -top-3 -right-3 w-9 h-9 rounded-full glass text-cream flex items-center justify-center text-base hover:bg-white/20 transition-colors cursor-pointer"
@@ -78,18 +70,17 @@ export default function AboutOverlay() {
   return (
     <>
       <div
-        className="h-screen flex flex-col items-center justify-center px-4 sm:px-6 gap-4 sm:gap-5 py-6"
+        className="h-screen flex flex-col items-center justify-center px-4 sm:px-6 gap-4 sm:gap-6 py-6"
         style={{
           opacity:    isActive ? 1 : 0.6,
           transform:  isActive ? 'translateY(0)' : 'translateY(16px)',
           transition: 'opacity 0.5s ease, transform 0.5s ease',
         }}
       >
-        {/* Main info grid */}
         <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
-          {/* About card */}
-          <div className="glass rounded-2xl p-5 sm:p-8">
+          {/* About card — includes photo strip at bottom */}
+          <div className="glass rounded-2xl p-5 sm:p-8 flex flex-col">
             <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-2 sm:mb-3">
               {ABOUT.label}
             </p>
@@ -99,7 +90,7 @@ export default function AboutOverlay() {
             <p className="font-body text-cream/65 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none">
               {ABOUT.text}
             </p>
-            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
               {ABOUT.features.map((f) => (
                 <div key={f.title} className="flex items-start gap-2">
                   <span className="text-base sm:text-lg mt-0.5">{f.icon}</span>
@@ -111,13 +102,29 @@ export default function AboutOverlay() {
               ))}
             </div>
 
-            {/* Quick amenity chips — mobile only */}
-            <div className="flex flex-wrap gap-1.5 lg:hidden">
-              {AMENITIES.slice(0, 6).map((a) => (
-                <span key={a.title} className="glass text-cream/70 text-xs px-2.5 py-1 rounded-full">
-                  {a.icon} {a.title}
-                </span>
-              ))}
+            {/* ── Photo strip (inside the card) ── */}
+            <div className="border-t border-white/10 pt-4 mt-auto">
+              <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
+                Anlarımızdan
+              </p>
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
+                {GALLERY_PHOTOS.map((photo, i) => (
+                  <button
+                    key={i}
+                    onClick={() => openPhoto(photo)}
+                    className="flex-shrink-0 w-[64px] h-[64px] sm:w-20 sm:h-20 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#D4870A]/60 hover:scale-105 transition-all duration-200 focus:outline-none bg-white/5"
+                    aria-label={photo.alt}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.currentTarget.style.opacity = '0'; }}
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -137,31 +144,42 @@ export default function AboutOverlay() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
 
-        {/* Photo strip */}
-        <div className="w-full max-w-4xl">
-          <p className="font-body text-cream/45 text-[10px] tracking-[0.25em] uppercase mb-2 sm:mb-3">
-            ✦ Anlarımızdan
-          </p>
-          <div className="flex gap-2 sm:gap-3 overflow-x-auto scrollbar-hide pb-0.5">
-            {GALLERY_PHOTOS.map((photo, i) => (
-              <button
-                key={i}
-                onClick={() => openPhoto(photo)}
-                className="flex-shrink-0 w-[72px] h-[72px] sm:w-24 sm:h-24 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#D4870A]/50 hover:scale-105 transition-all duration-200 focus:outline-none focus:border-[#D4870A]/70"
-                aria-label={photo.alt}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="w-full h-full object-cover"
-                />
-              </button>
+            {/* Photo strip also on desktop amenities card (mobile shows inside about card) */}
+            <div className="border-t border-white/10 pt-4 mt-5">
+              <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
+                Anlarımızdan
+              </p>
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
+                {GALLERY_PHOTOS.map((photo, i) => (
+                  <button
+                    key={i}
+                    onClick={() => openPhoto(photo)}
+                    className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden cursor-pointer border border-white/10 hover:border-[#D4870A]/60 hover:scale-105 transition-all duration-200 focus:outline-none bg-white/5"
+                    aria-label={photo.alt}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.currentTarget.style.opacity = '0'; }}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: quick amenity chips below the about card */}
+          <div className="flex flex-wrap gap-1.5 lg:hidden">
+            {AMENITIES.slice(0, 6).map((a) => (
+              <span key={a.title} className="glass text-cream/70 text-xs px-2.5 py-1 rounded-full">
+                {a.icon} {a.title}
+              </span>
             ))}
           </div>
+
         </div>
       </div>
 
