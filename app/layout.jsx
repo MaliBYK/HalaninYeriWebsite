@@ -25,6 +25,9 @@ export const viewport = {
 
 export const metadata = {
   title: "Hala'nın Yeri Camping | Olimpos Kamp Alanı Antalya",
+  icons: {
+    icon: '/favicon.png',
+  },
   description: "Olimpos antik kentine 10 dk yürüme mesafesinde, portakal bahçesi içinde huzurlu kamp deneyimi. Çadır alanları, ahşap platformlar, ateş alanı, duş, WC. Antalya'nın en doğal kamp alanı.",
   keywords: [
     'olimpos kamp alanı',
