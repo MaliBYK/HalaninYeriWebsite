@@ -15,6 +15,7 @@ import BookingScene from '../models/BookingScene';
 import SceneProps from '../models/SceneProps';
 import FencePerimeter from '../models/FencePerimeter';
 import Torches from '../models/Torch';
+import Animals from '../models/Animals';
 import useStore from '../../store/useStore';
 import { QUALITY_CONFIG } from '../../lib/config';
 
@@ -45,6 +46,7 @@ function SceneContent() {
       <SceneProps />
       <FencePerimeter />
       <Torches />
+      <Animals />
       <group visible={progress >= 0.40}>
         <GalleryScene />
       </group>
