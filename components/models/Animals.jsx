@@ -1,6 +1,6 @@
 'use client';
 import { useMemo, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 const ANIMAL_CONFIGS = [
@@ -32,6 +32,26 @@ export default function Animals() {
   const { scene: bunnyScene } = useGLTF('/models/animal-bunny.glb');
   const { scene: chickScene } = useGLTF('/models/animal-chick.glb');
   const { scene: beeScene }   = useGLTF('/models/animal-bee.glb');
+
+  const texture = useTexture('/textures/colormap.png');
+  texture.flipY = false;
+
+  // Apply texture map to the meshes of the base scenes
+  useMemo(() => {
+    const applyColorMap = (scene) => {
+      scene.traverse((child) => {
+        if (child.isMesh) {
+          child.material.map = texture;
+          child.material.needsUpdate = true;
+        }
+      });
+    };
+    applyColorMap(deerScene);
+    applyColorMap(cowScene);
+    applyColorMap(bunnyScene);
+    applyColorMap(chickScene);
+    applyColorMap(beeScene);
+  }, [deerScene, cowScene, bunnyScene, chickScene, beeScene, texture]);
 
   const scenes = useMemo(() => ({
     deer: deerScene,
