@@ -35,13 +35,19 @@ export default function Animals() {
 
   const texture = useTexture('/textures/colormap.png');
   texture.flipY = false;
+  texture.colorSpace = 'srgb'; // Set sRGB color space for rich, saturated colors
 
-  // Apply texture map to the meshes of the base scenes
+  // Apply texture map and adjust material properties to prevent washed-out white highlights
   useMemo(() => {
     const applyColorMap = (scene) => {
       scene.traverse((child) => {
         if (child.isMesh) {
           child.material.map = texture;
+          if (child.material.color) {
+            child.material.color.set('#ffffff'); // Reset base color to pure white so texture is fully visible
+          }
+          child.material.roughness = 1.0; // Fully rough/matte surface to eliminate bright white reflections
+          child.material.metalness = 0.0; // Non-metallic surface
           child.material.needsUpdate = true;
         }
       });
