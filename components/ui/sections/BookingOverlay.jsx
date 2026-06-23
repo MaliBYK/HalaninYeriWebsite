@@ -155,7 +155,7 @@ export default function BookingOverlay() {
               onChange={update('name')}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 font-body text-cream text-sm placeholder:text-cream/30 focus:outline-none focus:border-[#D4870A]/50 pointer-events-auto"
             />
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-3">
               <div>
                 <label className="font-body text-cream/50 text-xs mb-1 block">{BOOKING.formCheckInLabel}</label>
                 <input type="date" value={form.checkIn} onChange={update('checkIn')}
@@ -169,7 +169,7 @@ export default function BookingOverlay() {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-3">
               <CustomSelect
                 label={BOOKING.formGuestsLabel}
                 value={form.guests - 1}
