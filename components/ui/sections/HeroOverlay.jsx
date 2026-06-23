@@ -1,12 +1,15 @@
 'use client';
 import { useRef, useEffect } from 'react';
-import { HERO } from '../../../lib/content';
 import { WHATSAPP_NUMBER, GOOGLE_MAPS_URL } from '../../../lib/config';
 import useStore from '../../../store/useStore';
-
-const WA_BOOKING = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('🏕️ Merhaba, rezervasyon yapmak istiyorum')}`;
+import { TRANSLATIONS } from '../../../lib/translations';
 
 export default function HeroOverlay() {
+  const lang = useStore((s) => s.language);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.tr;
+  const HERO = t.hero;
+
+  const waBooking = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.booking.message)}`;
   const ctaRef = useRef(null);
 
   // Block touch events from bubbling to the window scroll listener.
@@ -52,7 +55,7 @@ export default function HeroOverlay() {
           textShadow: '0 2px 24px rgba(0,0,0,0.85), 0 0 48px rgba(0,0,0,0.5)',
         }}
       >
-        Hala&apos;nın Yeri
+        {HERO.title}
       </h1>
 
       {/* Subtitle */}
@@ -72,7 +75,7 @@ export default function HeroOverlay() {
         className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-10 section-fade"
       >
         <a
-          href={WA_BOOKING}
+          href={waBooking}
           target="_blank"
           rel="noopener noreferrer"
           className="py-3 sm:py-3.5 px-8 bg-[#D4870A] hover:bg-[#E89B1A] text-white font-body font-700 rounded-full transition-colors duration-200 text-center pointer-events-auto text-sm sm:text-base cursor-pointer"
@@ -83,7 +86,7 @@ export default function HeroOverlay() {
           onClick={() => useStore.getState().goTo?.(1)}
           className="py-3 sm:py-3.5 px-8 glass text-cream/90 hover:text-cream font-body rounded-full transition-colors duration-200 pointer-events-auto text-sm sm:text-base cursor-pointer"
         >
-          Keşfet ↓
+          {HERO.explore}
         </button>
       </div>
 

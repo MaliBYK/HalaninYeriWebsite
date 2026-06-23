@@ -1,7 +1,7 @@
 'use client';
-import { REVIEWS } from '../../../lib/content';
 import { GOOGLE_REVIEWS_URL, INSTAGRAM_HANDLE } from '../../../lib/config';
 import useStore from '../../../store/useStore';
+import { TRANSLATIONS } from '../../../lib/translations';
 
 function Stars({ n }) {
   return (
@@ -13,6 +13,9 @@ function Stars({ n }) {
 
 export default function GalleryOverlay() {
   const isActive = useStore((s) => s.activeSection === 'gallery');
+  const lang = useStore((s) => s.language);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.tr;
+  const REVIEWS = t.gallery.reviews;
 
   return (
     <div
@@ -28,13 +31,13 @@ export default function GalleryOverlay() {
         {/* Header */}
         <div className="text-center mb-3 sm:mb-6">
           <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-1 sm:mb-2">
-            Misafirlerimiz
+            {t.gallery.label}
           </p>
           <h2 className="font-display text-cream text-2xl sm:text-4xl">
-            Misafirlerimiz Ne Diyor?
+            {t.gallery.title}
           </h2>
           <p className="font-body text-cream/50 text-xs sm:text-sm mt-1 sm:mt-2">
-            ⭐ 4.4 · Google&apos;da 232 değerlendirme
+            {t.gallery.ratingSummary}
           </p>
         </div>
 
@@ -79,7 +82,7 @@ export default function GalleryOverlay() {
             rel="noopener noreferrer"
             className="font-body text-sm text-[#D4870A] hover:text-[#E89B1A] transition-colors duration-200 pointer-events-auto"
           >
-            Google&apos;da Tüm Yorumları Gör →
+            {t.gallery.allReviews}
           </a>
           <span className="hidden sm:block text-cream/20">|</span>
           <a

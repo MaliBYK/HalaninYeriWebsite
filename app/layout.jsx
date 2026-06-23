@@ -15,6 +15,14 @@ const lato = Lato({
   display: 'swap',
 });
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+
 export const metadata = {
   title: "Hala'nın Yeri — Olympos, Antalya",
   description:
@@ -25,13 +33,6 @@ export const metadata = {
     description: 'Portakal ağaçları altında kamp deneyimi — Olympos, Antalya',
     locale: 'tr_TR',
     type: 'website',
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: 'cover',
   },
 };
 

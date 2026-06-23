@@ -9,6 +9,8 @@ const useStore = create((set) => ({
   booking: { checkIn: '', checkOut: '', guests: 2, name: '', phone: '' },
   goTo: null,
   timeOfDay: 12,
+  isAutoTime: true,
+  language: 'tr',
 
   setScrollProgress:  (v)    => set({ scrollProgress: v }),
   setQualityTier:     (tier) => set({ qualityTier: tier }),
@@ -18,6 +20,8 @@ const useStore = create((set) => ({
   setBooking: (data) => set((s) => ({ booking: { ...s.booking, ...data } })),
   setGoTo:    (fn)   => set({ goTo: fn }),
   setTimeOfDay: (t)  => set({ timeOfDay: t }),
+  setIsAutoTime: (v)  => set({ isAutoTime: v }),
+  setLanguage: (lang) => set({ language: lang }),
 }));
 
 export default useStore;

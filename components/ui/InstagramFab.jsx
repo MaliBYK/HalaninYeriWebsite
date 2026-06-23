@@ -1,7 +1,11 @@
 'use client';
 import { INSTAGRAM_HANDLE } from '../../lib/config';
+import useStore from '../../store/useStore';
+import { TRANSLATIONS } from '../../lib/translations';
 
 export default function InstagramFab() {
+  const lang = useStore((s) => s.language);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.tr;
   const url = `https://www.instagram.com/${INSTAGRAM_HANDLE}`;
 
   return (
@@ -9,10 +13,10 @@ export default function InstagramFab() {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Instagram'da takip et"
+      aria-label={t.fabs.instagramAria}
       style={{ zIndex: 30 }}
       className="fixed bottom-6 left-6 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 pointer-events-auto"
-      title="Instagram'da takip edin"
+      title={t.fabs.instagramTitle}
     >
       {/* Instagram gradient background */}
       <div

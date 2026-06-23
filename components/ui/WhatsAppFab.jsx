@@ -1,20 +1,22 @@
 'use client';
 import { WHATSAPP_NUMBER } from '../../lib/config';
-
-const WA_MSG = 'Merhaba, bilgi alabilir miyim?';
+import useStore from '../../store/useStore';
+import { TRANSLATIONS } from '../../lib/translations';
 
 export default function WhatsAppFab() {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WA_MSG)}`;
+  const lang = useStore((s) => s.language);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.tr;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.fabs.whatsappMsg)}`;
 
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="WhatsApp ile iletişime geç"
+      aria-label={t.fabs.whatsappAria}
       style={{ zIndex: 30 }}
       className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-transform duration-200 hover:scale-110 active:scale-95 pointer-events-auto"
-      title="WhatsApp ile yazın"
+      title={t.fabs.whatsappTitle}
     >
       {/* Green background */}
       <div className="absolute inset-0 rounded-full bg-[#25D366]" />

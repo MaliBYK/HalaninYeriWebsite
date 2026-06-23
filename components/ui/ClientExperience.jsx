@@ -8,10 +8,12 @@ import InstagramFab from './InstagramFab';
 import ClockWidget from './ClockWidget';
 import { useQualityTier } from '../../hooks/useQualityTier';
 import { useLenisScroll } from '../../hooks/useLenisScroll';
+import { useAntalyaTime } from '../../hooks/useAntalyaTime';
 
 export default function ClientExperience() {
   useQualityTier();
   useLenisScroll();
+  useAntalyaTime();
 
   return (
     <>

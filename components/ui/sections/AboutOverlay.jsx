@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { ABOUT, AMENITIES, GALLERY_PHOTOS } from '../../../lib/content';
+import { GALLERY_PHOTOS } from '../../../lib/content';
 import useStore from '../../../store/useStore';
+import { TRANSLATIONS } from '../../../lib/translations';
 
 function Lightbox({ photo, onClose }) {
   useEffect(() => {
@@ -59,6 +60,10 @@ function Lightbox({ photo, onClose }) {
 
 export default function AboutOverlay() {
   const isActive = useStore((s) => s.activeSection === 'about');
+  const lang = useStore((s) => s.language);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.tr;
+  const about = t.about;
+  const amenities = t.about.amenities;
   const [lightboxPhoto, setLightboxPhoto] = useState(null);
 
   const openPhoto  = useCallback((photo) => setLightboxPhoto(photo), []);
@@ -79,16 +84,16 @@ export default function AboutOverlay() {
           {/* About card — includes photo strip at bottom */}
           <div className="glass rounded-2xl p-5 sm:p-8 flex flex-col">
             <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-2 sm:mb-3">
-              {ABOUT.label}
+              {about.label}
             </p>
             <h2 className="font-display text-cream text-2xl sm:text-3xl leading-snug mb-3 sm:mb-5">
-              {ABOUT.title}
+              {about.title}
             </h2>
             <p className="font-body text-cream/65 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-3 sm:line-clamp-none">
-              {ABOUT.text}
+              {about.text}
             </p>
             <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-5">
-              {ABOUT.features.map((f) => (
+              {about.features.map((f) => (
                 <div key={f.title} className="flex items-start gap-2">
                   <span className="text-base sm:text-lg mt-0.5">{f.icon}</span>
                   <div>
@@ -102,7 +107,7 @@ export default function AboutOverlay() {
             {/* ── Photo strip (inside the card) ── */}
             <div className="border-t border-white/10 pt-4 mt-auto">
               <p className="font-body text-[#D4870A] text-xs tracking-[0.22em] uppercase mb-3">
-                Anlarımızdan
+                {about.ourMoments}
               </p>
               <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-0.5">
                 {GALLERY_PHOTOS.map((photo, i) => (
@@ -128,10 +133,10 @@ export default function AboutOverlay() {
           {/* Full amenities card — desktop only */}
           <div className="glass rounded-2xl p-5 sm:p-8 hidden lg:block">
             <h2 className="font-display text-cream text-2xl mb-5">
-              Konforunuz İçin Her Şey
+              {about.comfortTitle}
             </h2>
             <div className="grid grid-cols-1 gap-2.5">
-              {AMENITIES.map((a) => (
+              {amenities.map((a) => (
                 <div key={a.title} className="flex items-center gap-3">
                   <span className="text-xl w-8 text-center">{a.icon}</span>
                   <div>
@@ -145,7 +150,7 @@ export default function AboutOverlay() {
 
           {/* Mobile: quick amenity chips below the about card */}
           <div className="flex flex-wrap gap-1.5 lg:hidden">
-            {AMENITIES.slice(0, 6).map((a) => (
+            {amenities.slice(0, 6).map((a) => (
               <span key={a.title} className="glass text-cream/70 text-xs px-2.5 py-1 rounded-full">
                 {a.icon} {a.title}
               </span>
