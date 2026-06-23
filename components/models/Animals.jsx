@@ -4,16 +4,16 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 const ANIMAL_CONFIGS = [
-  // Deers (grazing outside the left fence - halved scale)
-  { id: 'deer1', model: 'deer', cx: -11, cz: -4, rx: 2.5, rz: 2.0, speed: 0.18, scale: 0.425, yOffset: 0 },
-  { id: 'deer2', model: 'deer', cx: -13, cz: -9, rx: 2.0, rz: 2.5, speed: 0.14, scale: 0.40, yOffset: 0 },
+  // Deers (grazing outside the left fence - scaled to ~0.6)
+  { id: 'deer1', model: 'deer', cx: -11, cz: -4, rx: 2.5, rz: 2.0, speed: 0.18, scale: 0.64, yOffset: 0 },
+  { id: 'deer2', model: 'deer', cx: -13, cz: -9, rx: 2.0, rz: 2.5, speed: 0.14, scale: 0.60, yOffset: 0 },
   
-  // Cows (moved inside the fence, back-right side - halved scale)
-  { id: 'cow1', model: 'cow', cx: 5.0, cz: -10.0, rx: 1.5, rz: 1.2, speed: 0.10, scale: 0.525, yOffset: 0 },
-  { id: 'cow2', model: 'cow', cx: 3.0, cz: -11.0, rx: 1.2, rz: 1.5, speed: 0.08, scale: 0.50, yOffset: 0 },
+  // Cows (moved inside the fence, back-right side - scaled to ~0.78)
+  { id: 'cow1', model: 'cow', cx: 5.0, cz: -10.0, rx: 1.5, rz: 1.2, speed: 0.10, scale: 0.79, yOffset: 0 },
+  { id: 'cow2', model: 'cow', cx: 3.0, cz: -11.0, rx: 1.2, rz: 1.5, speed: 0.08, scale: 0.75, yOffset: 0 },
   
-  // Bunny (hopping around the left tents inside the camp)
-  { id: 'bunny1', model: 'bunny', cx: -5.2, cz: -6.5, rx: 1.4, rz: 1.1, speed: 0.32, scale: 0.45, yOffset: 0 },
+  // Bunny (hopping around the left tents inside the camp - moved forward/closer to camera)
+  { id: 'bunny1', model: 'bunny', cx: -5.0, cz: -3.5, rx: 1.4, rz: 1.1, speed: 0.32, scale: 0.45, yOffset: 0 },
   
   // Chickens (increased to 3 at different spots inside the camp)
   { id: 'chick1', model: 'chick', cx: 4.5, cz: -7.0, rx: 1.1, rz: 0.9, speed: 0.26, scale: 0.38, yOffset: 0 },
